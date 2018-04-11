@@ -13,14 +13,16 @@ const variables = {
     outputFormat: "cjs",
     location: `${projectRoot}/src/node`,
     inputRelativeLocation: `createLoader.js`,
-    outputRelativeLocation: `index.js`,
+    outputFolder: `${projectRoot}/dist/src/node`,
+    outputRelativeLocation: 'index.js',
     sourceMapRelativeLocation: `index.js.map`,
   },
   browser: {
     outputFormat: "iife",
     location: `${projectRoot}/src/browser`,
     inputRelativeLocation: `createLoader.js`,
-    outputRelativeLocation: `index.js`,
+    outputFolder: `${projectRoot}/dist/src/browser`,
+    outputRelativeLocation: 'index.js',
     sourceMapRelativeLocation: `index.js.map`,
   },
 }
@@ -29,6 +31,7 @@ export const build = ({ type = "browser", minify = false } = {}) => {
   const {
     location,
     inputRelativeLocation,
+    outputFolder,
     outputRelativeLocation,
     sourceMapRelativeLocation,
     outputFormat,
@@ -69,6 +72,7 @@ export const build = ({ type = "browser", minify = false } = {}) => {
         sourceMap: map,
         location,
         inputRelativeLocation,
+        outputFolder,
         outputRelativeLocation,
         sourceMapRelativeLocation,
       })

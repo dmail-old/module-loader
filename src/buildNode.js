@@ -1,3 +1,3 @@
-import { build } from "./buildLoader.js"
+import { build } from "./build.js"
 
 build({ type: "node" })
