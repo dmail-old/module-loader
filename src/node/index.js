@@ -2095,20 +2095,38 @@ fetch.Promise = global.Promise;
 
 https.globalAgent.options.rejectUnauthorized = false;
 
-var fetchModuleFromServer = function fetchModuleFromServer(key) {
-	return fetch(key).then(function (response) {
-		return response.text();
-	});
+var fetchModuleFromFileSystem = function fetchModuleFromFileSystem(key) {
+	if (key.indexOf("file:") === 0) {
+		var filePath = fileUrlToPath(key);
+		return new Promise(function (resolve, reject) {
+			fs.readFile(filePath, function (error, buffer) {
+				if (error) {
+					reject(error);
+				} else {
+					resolve(String(buffer));
+				}
+			});
+		});
+	}
+	return undefined;
 };
 
-var fetchModuleFromFileSystem = function fetchModuleFromFileSystem(key) {
-	return new Promise(function (resolve, reject) {
-		fs.readFile(key, function (error, buffer) {
-			if (error) {
-				reject(error);
-			} else {
-				resolve(String(buffer));
+var fetchModuleFromServer = function fetchModuleFromServer(key) {
+	if (key.indexOf("http:") === 0 || key.indexOf("https:") === 0) {
+		return fetch(key).then(function (response) {
+			return response.text();
+		});
+	}
+	return undefined;
+};
+
+var fetchModule = function fetchModule(key) {
+	return Promise.resolve(fetchModuleFromFileSystem(key)).then(function (source) {
+		return typeof source === 'string' ? source : Promise.resolve(fetchModuleFromServer(key)).then(function (source) {
+			if (typeof source === 'string') {
+				return source;
 			}
+			throw new Error("unsupported protocol for module " + key);
 		});
 	});
 };
@@ -2119,16 +2137,6 @@ var isNodeBuiltinModule = function isNodeBuiltinModule(moduleName) {
 	}
 
 	return repl._builtinLibs.includes(moduleName);
-};
-
-var fetchModuleSource = function fetchModuleSource(key) {
-  if (key.indexOf("file:") === 0) {
-    return fetchModuleFromFileSystem(fileUrlToPath(key));
-  }
-  if (key.indexOf("http:") === 0 || key.indexOf("https:") === 0) {
-    return fetchModuleFromServer(key);
-  }
-  throw new Error("unsupported protocol for module " + key);
 };
 
 var createNodeLoader = function createNodeLoader() {
@@ -2150,7 +2158,7 @@ var createNodeLoader = function createNodeLoader() {
         return Promise.resolve(new ModuleNamespace(bindings));
       }
 
-      return fetchModuleSource(key).then(function (source) {
+      return fetchModule(key).then(function (source) {
 (eval)(source);
         processAnonRegister();
       });
@@ -2159,6 +2167,3 @@ var createNodeLoader = function createNodeLoader() {
 };
 
 exports.createNodeLoader = createNodeLoader;
-
-//# sourceURL=/createLoader.js
-//# sourceMappingURL=/index.js.map

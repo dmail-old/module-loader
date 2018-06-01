@@ -1,21 +1,10 @@
 // https://github.com/ModuleLoader/node-es-module-loader
 
 import { ModuleNamespace } from "es-module-loader/core/loader-polyfill.js"
-import { isNode, fileUrlToPath } from "es-module-loader/core/common.js"
-
+import { isNode } from "es-module-loader/core/common.js"
 import { createLoader } from "../createLoader.js"
-import { fetchModuleFromServer, fetchModuleFromFileSystem } from "./fetchModule.js"
+import { fetchModule } from "./fetchModule.js"
 import { isNodeBuiltinModule } from "./isNodeBuiltinModule.js"
-
-const fetchModuleSource = (key) => {
-  if (key.indexOf("file:") === 0) {
-    return fetchModuleFromFileSystem(fileUrlToPath(key))
-  }
-  if (key.indexOf("http:") === 0 || key.indexOf("https:") === 0) {
-    return fetchModuleFromServer(key)
-  }
-  throw new Error(`unsupported protocol for module ${key}`)
-}
 
 export const createNodeLoader = ({ base } = {}) => {
   if (!isNode) {
@@ -33,7 +22,7 @@ export const createNodeLoader = ({ base } = {}) => {
         return Promise.resolve(new ModuleNamespace(bindings))
       }
 
-      return fetchModuleSource(key).then((source) => {
+      return fetchModule(key).then((source) => {
         ;(0, eval)(source)
         processAnonRegister()
       })

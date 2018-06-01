@@ -768,11 +768,62 @@ var createLoader = function createLoader() {
 	return loader;
 };
 
-var createBrowserLoader = function createBrowserLoader() {
-	var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-	    base = _ref.base;
+var fetchAnonymous = function fetchAnonymous() {
+	return null;
+};
 
-	return createLoader({ base: base });
+var fetchUsingXHR = function fetchUsingXHR(url) {
+	return new Promise(function (resolve, reject) {
+		var xhr = new XMLHttpRequest();
+
+		var load = function load() {
+			resolve(xhr.responseText);
+		};
+
+		var error = function error() {
+			reject(new Error('XHR error (status: ' + xhr.status + ', text: ' + xhr.statusText + ') loading ' + url + ')'));
+		};
+
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 0) {
+					if (xhr.responseText) {
+						load();
+					} else {
+						xhr.addEventListener('error', error);
+						xhr.addEventListener('load', load);
+					}
+				} else if (xhr.status === 200) {
+					load();
+				} else {
+					error();
+				}
+			}
+		};
+		xhr.open("GET", url, true);
+		xhr.send(null);
+	});
+};
+
+var fetchModule = function fetchModule(url) {
+	return Promise.resolve(fetchAnonymous(url)).then(function (source) {
+		return typeof source === 'string' ? source : fetchUsingXHR(url);
+	});
+};
+
+var createBrowserLoader = function createBrowserLoader() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      base = _ref.base;
+
+  return createLoader({
+    base: base,
+    instantiate: function instantiate(key, processAnonRegister) {
+      return fetchModule(key).then(function (source) {
+(eval)(source);
+        processAnonRegister();
+      });
+    }
+  });
 };
 
 exports.createBrowserLoader = createBrowserLoader;
@@ -780,6 +831,3 @@ exports.createBrowserLoader = createBrowserLoader;
 return exports;
 
 }({}));
-
-//# sourceURL=/createLoader.js
-//# sourceMappingURL=/index.js.map
