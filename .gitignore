@@ -4,8 +4,3 @@ coverage
 .nyc_output
 coverage.lcov
 .vscode
-
-src/node/index.js
-src/node/index.js.map
-src/browser/index.js
-src/browser/index.js.map
