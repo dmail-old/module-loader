@@ -768,62 +768,48 @@ var createLoader = function createLoader() {
 	return loader;
 };
 
-var fetchAnonymous = function fetchAnonymous() {
-	return null;
-};
-
-var fetchUsingXHR = function fetchUsingXHR(url) {
+var fetchAndEvalUsingScript = function fetchAndEvalUsingScript(key) {
 	return new Promise(function (resolve, reject) {
-		var xhr = new XMLHttpRequest();
+		var script = document.createElement('script');
+		script.type = 'text/javascript';
+		script.charset = 'utf-8';
+		script.async = true;
+		script.src = key;
+		document.head.appendChild(script);
 
-		var load = function load() {
-			resolve(xhr.responseText);
+		var cleanup = function cleanup() {
+			document.head.removeChild(script);
 		};
 
-		var error = function error() {
-			reject(new Error('XHR error (status: ' + xhr.status + ', text: ' + xhr.statusText + ') loading ' + url + ')'));
+		var onload = function onload() {
+			script.removeEventListener('load', onload, false);
+			cleanup();
+			resolve();
 		};
 
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState === 4) {
-				if (xhr.status === 0) {
-					if (xhr.responseText) {
-						load();
-					} else {
-						xhr.addEventListener('error', error);
-						xhr.addEventListener('load', load);
-					}
-				} else if (xhr.status === 200) {
-					load();
-				} else {
-					error();
-				}
-			}
+		var onerror = function onerror(error) {
+			script.removeEventListener('error', onerror, false);
+			cleanup();
+			reject(new Error('Error while fetching ' + key + ': ' + error));
 		};
-		xhr.open("GET", url, true);
-		xhr.send(null);
-	});
-};
 
-var fetchModule = function fetchModule(url) {
-	return Promise.resolve(fetchAnonymous(url)).then(function (source) {
-		return typeof source === 'string' ? source : fetchUsingXHR(url);
+		script.addEventListener('load', onload, false);
+		script.addEventListener('error', onerror, false);
 	});
 };
 
 var createBrowserLoader = function createBrowserLoader() {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      base = _ref.base;
+	var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+	    base = _ref.base;
 
-  return createLoader({
-    base: base,
-    instantiate: function instantiate(key, processAnonRegister) {
-      return fetchModule(key).then(function (source) {
-(eval)(source);
-        processAnonRegister();
-      });
-    }
-  });
+	return createLoader({
+		base: base,
+		instantiate: function instantiate(key, processAnonRegister) {
+			return fetchAndEvalUsingScript(key).then(function () {
+				processAnonRegister();
+			});
+		}
+	});
 };
 
 exports.createBrowserLoader = createBrowserLoader;
