@@ -1,10 +1,10 @@
-import { rollup } from "rollup"
-import nodeResolve from "rollup-plugin-node-resolve"
-import babel from "rollup-plugin-babel"
+import { createConfig, createSyntaxOptions, mergeOptions } from "@dmail/shared-config/dist/babel.js"
 import path from "path"
-import { writeCompilationResultOnFileSystem } from "./writeCompilationResultOnFileSystem.js"
-import { createBabelOptions } from "@dmail/shared-config"
+import { rollup } from "rollup"
+import babel from "rollup-plugin-babel"
+import nodeResolve from "rollup-plugin-node-resolve"
 import { replaceBackSlashWithSlash } from "./replaceBackSlashWithSlash.js"
+import { writeCompilationResultOnFileSystem } from "./writeCompilationResultOnFileSystem.js"
 
 const projectRoot = replaceBackSlashWithSlash(path.resolve(__dirname, "../../"))
 
@@ -14,7 +14,7 @@ const variables = {
     location: `${projectRoot}/src/node`,
     inputRelativeLocation: `createLoader.js`,
     outputFolder: `${projectRoot}/src/node`,
-    outputRelativeLocation: 'index.js',
+    outputRelativeLocation: "index.js",
     sourceMapRelativeLocation: `index.js.map`,
   },
   browser: {
@@ -22,12 +22,12 @@ const variables = {
     location: `${projectRoot}/src/browser`,
     inputRelativeLocation: `createLoader.js`,
     outputFolder: `${projectRoot}/src/browser`,
-    outputRelativeLocation: 'index.js',
+    outputRelativeLocation: "index.js",
     sourceMapRelativeLocation: `index.js.map`,
   },
 }
 
-export const build = ({ type = "browser", minify = false } = {}) => {
+export const build = ({ type = "browser" } = {}) => {
   const {
     location,
     inputRelativeLocation,
@@ -35,22 +35,23 @@ export const build = ({ type = "browser", minify = false } = {}) => {
     outputRelativeLocation,
     sourceMapRelativeLocation,
     outputFormat,
-	} = variables[type]
+  } = variables[type]
 
   const inputLocation = `${location}/${inputRelativeLocation}`
 
-  const babelOptions = {
-    ...createBabelOptions({ minify }),
-    // disabled babel rc because we're using the options above
-    babelrc: false,
-  }
+  const babelConfig = createConfig(
+    mergeOptions(createSyntaxOptions(), {
+      // disabled babel rc because we're using the options above
+      babelrc: false,
+    }),
+  )
 
   return rollup({
     entry: inputLocation,
     plugins: [
       // please keep in mind babel must not try to convert
       // require(), import or whatever module format is used because rollup takes care of that
-      babel(babelOptions),
+      babel(babelConfig),
       nodeResolve({
         module: false,
         jsnext: false,

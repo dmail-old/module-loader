@@ -1,6 +1,6 @@
 {
 	"name": "@dmail/module-loader",
-	"version": "3.0.0",
+	"version": "4.0.0",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"@dmail/action": "3.0.0",
-		"@dmail/shared-config": "4.0.0",
+		"@dmail/shared-config": "6.0.0",
 		"es-module-loader": "2.0.0",
 		"node-fetch": "2.0.0"
 	},

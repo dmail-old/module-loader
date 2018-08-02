@@ -1,5 +1,5 @@
-import fs from "fs"
 import { createAction, sequence } from "@dmail/action"
+import fs from "fs"
 import { replaceBackSlashWithSlash } from "./replaceBackSlashWithSlash.js"
 
 const getFileLStat = (path) => {

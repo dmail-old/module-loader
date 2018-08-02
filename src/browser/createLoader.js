@@ -6,41 +6,44 @@ import { createLoader } from "../createLoader.js"
 // we fetch using script else sourcemap are not loaded by browser
 const fetchAndEvalUsingScript = (key) => {
   return new Promise((resolve, reject) => {
-		const script = document.createElement('script')
-		script.type = 'text/javascript'
-		script.charset = 'utf-8'
-		script.async = true
-		script.src = key
-		document.head.appendChild(script)
+    const script = document.createElement("script")
+    script.type = "text/javascript"
+    script.charset = "utf-8"
+    script.async = true
+    script.src = key
+    document.head.appendChild(script)
 
-		const cleanup = () => {
-			document.head.removeChild(script)
-		}
+    const cleanup = () => {
+      document.head.removeChild(script)
+    }
 
-		const onload = () => {
-			script.removeEventListener('load', onload, false)
-			cleanup()
-			resolve()
-		}
+    const onload = () => {
+      script.removeEventListener("load", onload, false)
+      cleanup()
+      resolve()
+    }
 
-		const onerror = (error) => {
-			script.removeEventListener('error', onerror, false)
-			cleanup()
-			reject(new Error(`Error while fetching ${key}: ${error}`))
-		}
+    const onerror = (error) => {
+      script.removeEventListener("error", onerror, false)
+      cleanup()
+      reject(new Error(`Error while fetching ${key}: ${error}`))
+    }
 
-		script.addEventListener('load', onload, false)
-		script.addEventListener('error', onerror, false)
-	})
+    script.addEventListener("load", onload, false)
+    script.addEventListener("error", onerror, false)
+  })
 }
 
 export const createBrowserLoader = ({ base } = {}) => {
-	return createLoader({
-		base,
-		instantiate: (key, processAnonRegister) => {
-			return fetchAndEvalUsingScript(key).then(() => {
-				processAnonRegister()
-			})
+  return createLoader({
+    base,
+    instantiate: (key, processAnonRegister) => {
+      // just for information we could be able to replace fetchAndEvalUsingScript by
+      // fetchUsingXHR().then(source => eval(`${source}//# sourceURL=${key}`)
+      // and sourcemap should still be working
+      return fetchAndEvalUsingScript(key).then(() => {
+        processAnonRegister()
+      })
     },
-	})
+  })
 }

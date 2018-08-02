@@ -45,60 +45,55 @@
 // }
 
 const fetchAnonymous = () => {
-	return null
-	// if (url in anonymousSources === false) {
-	// 	return undefined
-	// }
-	// const source = anonymousSources[url]
-	// delete anonymousSources[url]
-	// return Promise.resolve(source)
+  return null
+  // if (url in anonymousSources === false) {
+  // 	return undefined
+  // }
+  // const source = anonymousSources[url]
+  // delete anonymousSources[url]
+  // return Promise.resolve(source)
 }
 
 const fetchUsingXHR = (url) => {
-	return new Promise((resolve, reject) => {
-		const xhr = new XMLHttpRequest()
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
 
-		const load = () => {
-			resolve(xhr.responseText)
-		}
+    const load = () => {
+      resolve(xhr.responseText)
+    }
 
-		const error = () => {
-			reject(
-				new Error(
-					`XHR error (status: ${xhr.status}, text: ${xhr.statusText}) loading ${url})`
-				)
-			)
-		}
+    const error = () => {
+      reject(
+        new Error(`XHR error (status: ${xhr.status}, text: ${xhr.statusText}) loading ${url})`),
+      )
+    }
 
-		xhr.onreadystatechange = () => {
-			if (xhr.readyState === 4) {
-				// in Chrome on file:/// URLs, status is 0
-				if (xhr.status === 0) {
-					if (xhr.responseText) {
-						load()
-					}
-					else {
-						// when responseText is empty, wait for load or error event
-						// to inform if it is a 404 or empty file
-						xhr.addEventListener('error', error)
-						xhr.addEventListener('load', load)
-					}
-				}
-				else if (xhr.status === 200) {
-					load()
-				}
-				else {
-					error()
-				}
-			}
-		}
-		xhr.open("GET", url, true)
-		xhr.send(null)
-	})
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        // in Chrome on file:/// URLs, status is 0
+        if (xhr.status === 0) {
+          if (xhr.responseText) {
+            load()
+          } else {
+            // when responseText is empty, wait for load or error event
+            // to inform if it is a 404 or empty file
+            xhr.addEventListener("error", error)
+            xhr.addEventListener("load", load)
+          }
+        } else if (xhr.status === 200) {
+          load()
+        } else {
+          error()
+        }
+      }
+    }
+    xhr.open("GET", url, true)
+    xhr.send(null)
+  })
 }
 
 export const fetchModule = (url) => {
-	return Promise.resolve(fetchAnonymous(url)).then((source) => {
-		return typeof source === 'string' ? source : fetchUsingXHR(url)
-	})
+  return Promise.resolve(fetchAnonymous(url)).then((source) => {
+    return typeof source === "string" ? source : fetchUsingXHR(url)
+  })
 }
