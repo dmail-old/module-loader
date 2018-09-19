@@ -4,8 +4,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var https = _interopDefault(require('https'));
 var fs = _interopDefault(require('fs'));
+var https = _interopDefault(require('https'));
 var Module = _interopDefault(require('module'));
 var repl = _interopDefault(require('repl'));
 var vm = require('vm');
@@ -2853,39 +2853,46 @@ fetch.Promise = global.Promise;
 https.globalAgent.options.rejectUnauthorized = false;
 
 var fetchModuleFromFileSystem = function fetchModuleFromFileSystem(key) {
-	if (key.indexOf("file:") === 0) {
-		var filePath = fileUrlToPath(key);
-		return new Promise(function (resolve, reject) {
-			fs.readFile(filePath, function (error, buffer) {
-				if (error) {
-					reject(error);
-				} else {
-					resolve(String(buffer));
-				}
-			});
-		});
-	}
-	return undefined;
+  if (key.indexOf("file:") === 0) {
+    var filePath = fileUrlToPath(key);
+    return new Promise(function (resolve, reject) {
+      fs.readFile(filePath, function (error, buffer) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(String(buffer));
+        }
+      });
+    }).then(function (source) {
+      return { source: source };
+    });
+  }
+  return undefined;
 };
 
 var fetchModuleFromServer = function fetchModuleFromServer(key) {
-	if (key.indexOf("http:") === 0 || key.indexOf("https:") === 0) {
-		return fetch(key).then(function (response) {
-			return response.text();
-		});
-	}
-	return undefined;
+  if (key.indexOf("http:") === 0 || key.indexOf("https:") === 0) {
+    return fetch(key).then(function (response) {
+      return response.text().then(function (source) {
+        return {
+          location: response.headers.get("x-location"),
+          source: source
+        };
+      });
+    });
+  }
+  return undefined;
 };
 
 var fetchModule = function fetchModule(key) {
-	return Promise.resolve(fetchModuleFromFileSystem(key)).then(function (source) {
-		return typeof source === 'string' ? source : Promise.resolve(fetchModuleFromServer(key)).then(function (source) {
-			if (typeof source === 'string') {
-				return source;
-			}
-			throw new Error("unsupported protocol for module " + key);
-		});
-	});
+  return Promise.resolve(fetchModuleFromFileSystem(key)).then(function (data) {
+    return data ? data : Promise.resolve(fetchModuleFromServer(key)).then(function (data) {
+      if (data) {
+        return data;
+      }
+      throw new Error("unsupported protocol for module " + key);
+    });
+  });
 };
 
 var isNodeBuiltinModule = function isNodeBuiltinModule(moduleName) {
@@ -2922,8 +2929,11 @@ var createNodeLoader = function createNodeLoader() {
         return Promise.resolve(new ModuleNamespace(bindings));
       }
 
-      return fetchModule(key).then(function (source) {
-        var script = new vm.Script(source, { filename: getFilename(key) });
+      return fetchModule(key).then(function (_ref2) {
+        var source = _ref2.source,
+            location = _ref2.location;
+
+        var script = new vm.Script(source, { filename: getFilename(key, location) });
         script.runInThisContext();
         processAnonRegister();
       });

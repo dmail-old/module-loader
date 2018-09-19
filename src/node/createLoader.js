@@ -24,8 +24,8 @@ export const createNodeLoader = ({ base, getFilename = (key) => key } = {}) => {
         return Promise.resolve(new ModuleNamespace(bindings))
       }
 
-      return fetchModule(key).then((source) => {
-        const script = new Script(source, { filename: getFilename(key) })
+      return fetchModule(key).then(({ source, location }) => {
+        const script = new Script(source, { filename: getFilename(key, location) })
         script.runInThisContext()
         processAnonRegister()
       })
