@@ -25,13 +25,14 @@ const fetchModuleFromFileSystem = (key) => {
 
 const fetchModuleFromServer = (key) => {
   if (key.indexOf("http:") === 0 || key.indexOf("https:") === 0) {
-    return fetch(key).then((response) =>
-      response.text().then((source) => {
-        return {
-          location: response.headers.get("x-location"),
-          source,
-        }
-      }),
+    return fetch(key, { headers: { "user-agent": `node/${process.version.slice(1)}` } }).then(
+      (response) =>
+        response.text().then((source) => {
+          return {
+            location: response.headers.get("x-location"),
+            source,
+          }
+        }),
     )
   }
   return undefined

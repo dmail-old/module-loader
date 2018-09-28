@@ -1,6 +1,6 @@
 {
 	"name": "@dmail/module-loader",
-	"version": "4.0.0",
+	"version": "5.0.0",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -9,56 +9,44 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"main": "dist/index.js",
-	"module": "index.js",
+	"main": "index.js",
 	"files": [
 		"dist",
-		"src"
+		"src",
+		"browser.js",
+		"browser.js.map",
+		"node.js",
+		"node.js.map"
 	],
 	"engines": {
 		"node": ">=8.6.0"
 	},
 	"dependencies": {
-		"@dmail/action": "3.0.0",
-		"@dmail/shared-config": "6.0.0",
 		"es-module-loader": "2.0.0",
 		"node-fetch": "2.0.0"
 	},
 	"devDependencies": {
-		"rollup": "0.57.0",
-		"rollup-plugin-node-resolve": "2.0.0",
-		"rollup-plugin-babel": "3.0.3",
-		"@dmail/test": "6.0.0",
-		"babel-core": "6.26.0",
-		"babel-cli": "6.26.0",
-		"babel-eslint": "8.0.0",
-		"codecov": "2.3.0",
-		"eslint": "4.16.0",
-		"eslint-plugin-import": "2.6.0",
+		"@dmail/project-structure-compile-babel": "github:dmail/project-structure-compile-babel",
+		"@dmail/project-prettier-config": "github:dmail/project-prettier-config",
 		"prettier": "1.9.1",
+		"@dmail/prettiest": "1.0.0",
+		"eslint": "5.1.0",
+		"eslint-plugin-import": "2.6.0",
+		"babel-eslint": "9.0.0",
+		"rollup": "0.66.2",
+		"rollup-plugin-babel": "4.0.3",
+		"@babel/core": "7.1.0",
+		"rollup-plugin-node-resolve": "3.4.0",
 		"rimraf": "2.6.2"
 	},
 	"scripts": {
-		"compile-dist": "babel . --out-dir dist --ignore=node_modules,dist --source-maps",
-		"compile-browser": "node dist/src/buildBrowser.js",
-		"compile-node": "node dist/src/buildNode.js",
-		"code-compile": "npm run compile-dist && npm run compile-browser && npm run compile-node",
+		"compile-browser": "node ./script/compile-browser.js",
+		"compile-node": "node ./script/compile-node.js",
+		"code-compile": "npm run compile-browser && npm run compile-node",
 		"code-clean": "rimraf dist",
 		"code-build": "npm run code-clean && npm run code-compile",
 		"code-lint": "eslint .",
 		"code-format": "prettiest",
-		"code-list": "prettiest-list",
-		"test-before": "npm run code-clean && npm run code-lint && npm run code-format && npm run code-compile",
-		"test-list": "test-list",
-		"test-run": "test-run",
-		"test": "npm run test-before && npm run test-run",
-		"test-cover": "npm run test-before && nyc npm run test-run",
-		"test-cover-clean": "rimraf .nyc_output && rimraf coverage && rimraf coverage.lcov",
-		"test-cover-html": "nyc report --reporter=lcov",
-		"test-cover-text": "nyc report --reporter=text-summary",
-		"test-cover-table": "nyc report --reporter=text",
-		"test-cover-lcov": "nyc report --reporter=text-lcov > coverage.lcov",
-		"test-cover-upload": "codecov --token=30d76e30-c2e3-4d8e-9c63-0610b8ccae5c",
 		"repo-reset": "npm run code-clean && npm run test-cover-clean && rimraf node_modules",
 		"repo-reinstall": "npm run repo-reset && npm install",
 		"build": "npm run code-build",
