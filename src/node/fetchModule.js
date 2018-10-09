@@ -1,9 +1,25 @@
-import { fileUrlToPath } from "es-module-loader/core/common.js"
 import fs from "fs"
 import https from "https"
 import fetch from "node-fetch/lib/index.es.js"
 
 https.globalAgent.options.rejectUnauthorized = false
+
+const isWindows =
+  typeof process !== "undefined" &&
+  typeof process.platform === "string" &&
+  process.platform.match(/^win/)
+
+const nodeVersion = process.version.slice(1)
+
+const fileUrlToPath = (fileUrl) => {
+  if (fileUrl.substr(0, 7) !== "file://") {
+    throw new RangeError(fileUrl + " is not a valid file url")
+  }
+  if (isWindows) {
+    return fileUrl.substr(8).replace(/\\/g, "/")
+  }
+  return fileUrl.substr(7)
+}
 
 const fetchModuleFromFileSystem = (key) => {
   if (key.indexOf("file:") === 0) {
@@ -25,14 +41,13 @@ const fetchModuleFromFileSystem = (key) => {
 
 const fetchModuleFromServer = (key) => {
   if (key.indexOf("http:") === 0 || key.indexOf("https:") === 0) {
-    return fetch(key, { headers: { "user-agent": `node/${process.version.slice(1)}` } }).then(
-      (response) =>
-        response.text().then((source) => {
-          return {
-            location: response.headers.get("x-location"),
-            source,
-          }
-        }),
+    return fetch(key, { headers: { "user-agent": `node/${nodeVersion}` } }).then((response) =>
+      response.text().then((source) => {
+        return {
+          location: response.headers.get("x-location"),
+          source,
+        }
+      }),
     )
   }
   return undefined

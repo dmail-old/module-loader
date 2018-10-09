@@ -1,6 +1,6 @@
 {
 	"name": "@dmail/module-loader",
-	"version": "5.0.0",
+	"version": "6.0.0",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -9,7 +9,8 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"main": "index.js",
+	"main": "dist/index.js",
+	"module": "index.js",
 	"files": [
 		"dist",
 		"src",
@@ -22,11 +23,12 @@
 		"node": ">=8.6.0"
 	},
 	"dependencies": {
-		"es-module-loader": "2.0.0",
-		"node-fetch": "2.0.0"
+		"node-fetch": "2.0.0",
+		"systemjs": "2.0.2"
 	},
 	"devDependencies": {
 		"@dmail/project-structure-compile-babel": "github:dmail/project-structure-compile-babel",
+		"@dmail/project-eslint-config": "github:dmail/project-eslint-config",
 		"@dmail/project-prettier-config": "github:dmail/project-prettier-config",
 		"prettier": "1.9.1",
 		"@dmail/prettiest": "1.0.0",
@@ -40,9 +42,7 @@
 		"rimraf": "2.6.2"
 	},
 	"scripts": {
-		"compile-browser": "node ./script/compile-browser.js",
-		"compile-node": "node ./script/compile-node.js",
-		"code-compile": "npm run compile-browser && npm run compile-node",
+		"code-compile": "node ./script/compile.js",
 		"code-clean": "rimraf dist",
 		"code-build": "npm run code-clean && npm run code-compile",
 		"code-lint": "eslint .",

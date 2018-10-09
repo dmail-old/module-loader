@@ -13,5 +13,9 @@ module.exports = {
       "package.json": false,
       "package-lock.json": false,
     },
+    compile: {
+      "index.js": true,
+      "src/**/*.js": true,
+    },
   },
 }
