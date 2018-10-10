@@ -1,2 +1,2 @@
-export { getBrowserSystemSource } from "./src/getBrowserSystemSource.js"
-export { getNodeSystemSource } from "./src/getNodeSystemSource.js"
+export { getBrowserSystemSource } from "./src/browser/getBrowserSystemSource.js"
+export { createNodeSystem } from "./src/node/createNodeSystem.js"

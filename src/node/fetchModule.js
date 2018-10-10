@@ -1,6 +1,6 @@
 import fs from "fs"
 import https from "https"
-import fetch from "node-fetch/lib/index.es.js"
+import fetch from "node-fetch"
 
 https.globalAgent.options.rejectUnauthorized = false
 
@@ -13,7 +13,7 @@ const nodeVersion = process.version.slice(1)
 
 const fileUrlToPath = (fileUrl) => {
   if (fileUrl.substr(0, 7) !== "file://") {
-    throw new RangeError(fileUrl + " is not a valid file url")
+    throw new RangeError(`${fileUrl  } is not a valid file url`)
   }
   if (isWindows) {
     return fileUrl.substr(8).replace(/\\/g, "/")
