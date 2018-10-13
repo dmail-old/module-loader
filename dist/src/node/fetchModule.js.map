@@ -1,0 +1,52 @@
+{
+  "version": 3,
+  "sources": [
+    "..\\..\\..\\src\\node\\fetchModule.js"
+  ],
+  "names": [
+    "https",
+    "globalAgent",
+    "options",
+    "rejectUnauthorized",
+    "isWindows",
+    "process",
+    "platform",
+    "match",
+    "nodeVersion",
+    "version",
+    "slice",
+    "fileUrlToPath",
+    "fileUrl",
+    "substr",
+    "RangeError",
+    "replace",
+    "fetchModuleFromFileSystem",
+    "key",
+    "indexOf",
+    "filePath",
+    "Promise",
+    "resolve",
+    "reject",
+    "fs",
+    "readFile",
+    "error",
+    "buffer",
+    "String",
+    "then",
+    "source",
+    "undefined",
+    "fetchModuleFromServer",
+    "headers",
+    "response",
+    "text",
+    "location",
+    "get",
+    "fetchModule",
+    "data",
+    "Error"
+  ],
+  "mappings": ";;;;;;;AAAA;;AACA;;AACA;;;;AAEAA,eAAMC,WAAN,CAAkBC,OAAlB,CAA0BC,kBAA1B,GAA+C,KAA/C;AAEA,MAAMC,SAAS,GACb,OAAOC,OAAP,KAAmB,WAAnB,IACA,OAAOA,OAAO,CAACC,QAAf,KAA4B,QAD5B,IAEAD,OAAO,CAACC,QAAR,CAAiBC,KAAjB,CAAuB,MAAvB,CAHF;AAKA,MAAMC,WAAW,GAAGH,OAAO,CAACI,OAAR,CAAgBC,KAAhB,CAAsB,CAAtB,CAApB;;AAEA,MAAMC,aAAa,GAAIC,OAAD,IAAa;AACjC,MAAIA,OAAO,CAACC,MAAR,CAAe,CAAf,EAAkB,CAAlB,MAAyB,SAA7B,EAAwC;AACtC,UAAM,IAAIC,UAAJ,CAAgB,GAAEF,OAAU,0BAA5B,CAAN;AACD;;AACD,MAAIR,SAAJ,EAAe;AACb,WAAOQ,OAAO,CAACC,MAAR,CAAe,CAAf,EAAkBE,OAAlB,CAA0B,KAA1B,EAAiC,GAAjC,CAAP;AACD;;AACD,SAAOH,OAAO,CAACC,MAAR,CAAe,CAAf,CAAP;AACD,CARD;;AAUA,MAAMG,yBAAyB,GAAIC,GAAD,IAAS;AACzC,MAAIA,GAAG,CAACC,OAAJ,CAAY,OAAZ,MAAyB,CAA7B,EAAgC;AAC9B,UAAMC,QAAQ,GAAGR,aAAa,CAACM,GAAD,CAA9B;AACA,WAAO,IAAIG,OAAJ,CAAY,CAACC,OAAD,EAAUC,MAAV,KAAqB;AACtCC,kBAAGC,QAAH,CAAYL,QAAZ,EAAsB,CAACM,KAAD,EAAQC,MAAR,KAAmB;AACvC,YAAID,KAAJ,EAAW;AACTH,UAAAA,MAAM,CAACG,KAAD,CAAN;AACD,SAFD,MAEO;AACLJ,UAAAA,OAAO,CAACM,MAAM,CAACD,MAAD,CAAP,CAAP;AACD;AACF,OAND;AAOD,KARM,EAQJE,IARI,CAQEC,MAAD,IAAY;AAClB,aAAO;AAAEA,QAAAA;AAAF,OAAP;AACD,KAVM,CAAP;AAWD;;AACD,SAAOC,SAAP;AACD,CAhBD;;AAkBA,MAAMC,qBAAqB,GAAId,GAAD,IAAS;AACrC,MAAIA,GAAG,CAACC,OAAJ,CAAY,OAAZ,MAAyB,CAAzB,IAA8BD,GAAG,CAACC,OAAJ,CAAY,QAAZ,MAA0B,CAA5D,EAA+D;AAC7D,WAAO,wBAAMD,GAAN,EAAW;AAAEe,MAAAA,OAAO,EAAE;AAAE,sBAAe,QAAOxB,WAAY;AAApC;AAAX,KAAX,EAAiEoB,IAAjE,CAAuEK,QAAD,IAC3EA,QAAQ,CAACC,IAAT,GAAgBN,IAAhB,CAAsBC,MAAD,IAAY;AAC/B,aAAO;AACLM,QAAAA,QAAQ,EAAEF,QAAQ,CAACD,OAAT,CAAiBI,GAAjB,CAAqB,YAArB,CADL;AAELP,QAAAA;AAFK,OAAP;AAID,KALD,CADK,CAAP;AAQD;;AACD,SAAOC,SAAP;AACD,CAZD;;AAcO,MAAMO,WAAW,GAAIpB,GAAD,IAAS;AAClC,SAAOG,OAAO,CAACC,OAAR,CAAgBL,yBAAyB,CAACC,GAAD,CAAzC,EAAgDW,IAAhD,CAAsDU,IAAD,IAAU;AACpE,WAAOA,IAAI,GACPA,IADO,GAEPlB,OAAO,CAACC,OAAR,CAAgBU,qBAAqB,CAACd,GAAD,CAArC,EAA4CW,IAA5C,CAAkDU,IAAD,IAAU;AACzD,UAAIA,IAAJ,EAAU;AACR,eAAOA,IAAP;AACD;;AACD,YAAM,IAAIC,KAAJ,CAAW,mCAAkCtB,GAAI,EAAjD,CAAN;AACD,KALD,CAFJ;AAQD,GATM,CAAP;AAUD,CAXM",
+  "sourcesContent": [
+    "import fs from \"fs\"\nimport https from \"https\"\nimport fetch from \"node-fetch\"\n\nhttps.globalAgent.options.rejectUnauthorized = false\n\nconst isWindows =\n  typeof process !== \"undefined\" &&\n  typeof process.platform === \"string\" &&\n  process.platform.match(/^win/)\n\nconst nodeVersion = process.version.slice(1)\n\nconst fileUrlToPath = (fileUrl) => {\n  if (fileUrl.substr(0, 7) !== \"file://\") {\n    throw new RangeError(`${fileUrl  } is not a valid file url`)\n  }\n  if (isWindows) {\n    return fileUrl.substr(8).replace(/\\\\/g, \"/\")\n  }\n  return fileUrl.substr(7)\n}\n\nconst fetchModuleFromFileSystem = (key) => {\n  if (key.indexOf(\"file:\") === 0) {\n    const filePath = fileUrlToPath(key)\n    return new Promise((resolve, reject) => {\n      fs.readFile(filePath, (error, buffer) => {\n        if (error) {\n          reject(error)\n        } else {\n          resolve(String(buffer))\n        }\n      })\n    }).then((source) => {\n      return { source }\n    })\n  }\n  return undefined\n}\n\nconst fetchModuleFromServer = (key) => {\n  if (key.indexOf(\"http:\") === 0 || key.indexOf(\"https:\") === 0) {\n    return fetch(key, { headers: { \"user-agent\": `node/${nodeVersion}` } }).then((response) =>\n      response.text().then((source) => {\n        return {\n          location: response.headers.get(\"x-location\"),\n          source,\n        }\n      }),\n    )\n  }\n  return undefined\n}\n\nexport const fetchModule = (key) => {\n  return Promise.resolve(fetchModuleFromFileSystem(key)).then((data) => {\n    return data\n      ? data\n      : Promise.resolve(fetchModuleFromServer(key)).then((data) => {\n          if (data) {\n            return data\n          }\n          throw new Error(`unsupported protocol for module ${key}`)\n        })\n  })\n}\n"
+  ]
+}

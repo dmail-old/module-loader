@@ -1,0 +1,44 @@
+{
+  "version": 3,
+  "sources": [
+    "..\\..\\..\\src\\browser\\getBrowserSystemSource.js"
+  ],
+  "names": [
+    "rollup",
+    "require",
+    "babel",
+    "nodeResolve",
+    "root",
+    "path",
+    "resolve",
+    "__dirname",
+    "inputFile",
+    "getBrowserSystemSource",
+    "name",
+    "version",
+    "pluginNames",
+    "compatMapBabel",
+    "plugins",
+    "bundlePromise",
+    "input",
+    "module",
+    "jsnext",
+    "babelrc",
+    "exclude",
+    "onwarn",
+    "systemSourcePromise",
+    "Promise",
+    "all",
+    "then",
+    "bundle",
+    "systemSource",
+    "generate",
+    "intro",
+    "format",
+    "sourcemap"
+  ],
+  "mappings": ";;;;;;;AAAA;;AAKA;;AACA;;;;AAEA,MAAM;AAAEA,EAAAA;AAAF,IAAaC,OAAO,CAAC,QAAD,CAA1B;;AACA,MAAMC,KAAK,GAAGD,OAAO,CAAC,qBAAD,CAArB;;AACA,MAAME,WAAW,GAAGF,OAAO,CAAC,4BAAD,CAA3B;;AAEA,MAAMG,IAAI,GAAGC,cAAKC,OAAL,CAAaC,SAAb,EAAwB,QAAxB,CAAb;;AACA,MAAMC,SAAS,GAAI,GAAEJ,IAAK,uBAA1B;;AAEO,MAAMK,sBAAsB,GAAG,CAAC;AAAEC,EAAAA,IAAI,GAAG,SAAT;AAAoBC,EAAAA,OAAO,GAAG;AAA9B,IAA0C,EAA3C,KAAkD;AACtF,QAAMC,WAAW,GAAG,6DAA0BC,4CAA1B,EAA0CH,IAA1C,EAAgDC,OAAhD,CAApB;AACA,QAAMG,OAAO,GAAG,uDAAoBF,WAApB,CAAhB;AAEA,QAAMG,aAAa,GAAGf,MAAM,CAAC;AAC3BgB,IAAAA,KAAK,EAAER,SADoB;AAE3BM,IAAAA,OAAO,EAAE,CACPX,WAAW,CAAC;AACVc,MAAAA,MAAM,EAAE,KADE;AAEVC,MAAAA,MAAM,EAAE;AAFE,KAAD,CADJ,EAKPhB,KAAK,CAAC;AACJiB,MAAAA,OAAO,EAAE,KADL;AAEJC,MAAAA,OAAO,EAAE,iBAFL;AAGJN,MAAAA;AAHI,KAAD,CALE,CAFkB;AAa3B;AACAO,IAAAA,MAAM,EAAE,MAAM,CAAE;AAdW,GAAD,CAA5B;AAgBA,QAAMC,mBAAmB,GAAG,uCAA5B;AAEA,SAAOC,OAAO,CAACC,GAAR,CAAY,CAACT,aAAD,EAAgBO,mBAAhB,CAAZ,EAAkDG,IAAlD,CAAuD,CAAC,CAACC,MAAD,EAASC,YAAT,CAAD,KAA4B;AACxF,WAAOD,MAAM,CAACE,QAAP,CAAgB;AACrBC,MAAAA,KAAK,EAAEF,YADc;AAErBG,MAAAA,MAAM,EAAE,MAFa;AAGrBC,MAAAA,SAAS,EAAE;AAHU,KAAhB,CAAP;AAKD,GANM,CAAP;AAOD,CA7BM",
+  "sourcesContent": [
+    "import {\n  compatMapBabel,\n  getPluginNamesForPlatform,\n  getPluginsFromNames,\n} from \"@dmail/project-structure-compile-babel\"\nimport path from \"path\"\nimport { getSystemSource } from \"./getSystemSource.js\"\n\nconst { rollup } = require(\"rollup\")\nconst babel = require(\"rollup-plugin-babel\")\nconst nodeResolve = require(\"rollup-plugin-node-resolve\")\n\nconst root = path.resolve(__dirname, \"../../\")\nconst inputFile = `${root}/src/browser/index.js`\n\nexport const getBrowserSystemSource = ({ name = \"unknown\", version = \"0.0.0\" } = {}) => {\n  const pluginNames = getPluginNamesForPlatform(compatMapBabel, name, version)\n  const plugins = getPluginsFromNames(pluginNames)\n\n  const bundlePromise = rollup({\n    input: inputFile,\n    plugins: [\n      nodeResolve({\n        module: false,\n        jsnext: false,\n      }),\n      babel({\n        babelrc: false,\n        exclude: \"node_modules/**\",\n        plugins,\n      }),\n    ],\n    // skip rollup warnings\n    onwarn: () => {},\n  })\n  const systemSourcePromise = getSystemSource()\n\n  return Promise.all([bundlePromise, systemSourcePromise]).then(([bundle, systemSource]) => {\n    return bundle.generate({\n      intro: systemSource,\n      format: \"iife\",\n      sourcemap: true,\n    })\n  })\n}\n"
+  ]
+}

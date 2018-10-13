@@ -1,0 +1,38 @@
+{
+  "version": 3,
+  "sources": [
+    "..\\..\\..\\src\\node\\createNodeSystem.js"
+  ],
+  "names": [
+    "createNodeSystem",
+    "localRoot",
+    "Promise",
+    "resolve",
+    "then",
+    "nodeSystem",
+    "global",
+    "System",
+    "constructor",
+    "instantiate",
+    "url",
+    "parent",
+    "nodeBuiltinModuleExports",
+    "require",
+    "bindings",
+    "default",
+    "instantiateArgs",
+    "_export",
+    "execute",
+    "source",
+    "location",
+    "filename",
+    "script",
+    "Script",
+    "runInThisContext",
+    "getRegister"
+  ],
+  "mappings": ";;;;;;;AAAA;;AACA;;AACA;;AACA;;;;;;AAEO,MAAMA,gBAAgB,GAAG,CAAC;AAAEC,EAAAA;AAAF,IAAgB,EAAjB,KAAwB;AACtD,SAAOC,OAAO,CAACC,OAAR,GAAkBC,IAAlB,CAAuB,MAAM;AAClC,UAAMC,UAAU,GAAG,IAAIC,MAAM,CAACC,MAAP,CAAcC,WAAlB,EAAnB;;AAEAH,IAAAA,UAAU,CAACI,WAAX,GAAyB,UAASC,GAAT,EAAcC,MAAd,EAAsB;AAC7C,UAAI,8CAAoBD,GAApB,CAAJ,EAA8B;AAC5B,cAAME,wBAAwB,GAAGC,OAAO,CAACH,GAAD,CAAxC,CAD4B,CACkB;;;AAC9C,cAAMI,QAAQ,qBACTF,wBADS;AAEZG,UAAAA,OAAO,EAAEH;AAFG,UAAd;;AAIA,cAAMI,eAAe,GAAG,CACtB,EADsB,EAErBC,OAAD,IAAa;AACX,iBAAO;AACLC,YAAAA,OAAO,EAAE,MAAM;AACbD,cAAAA,OAAO,CAACH,QAAD,CAAP;AACD;AAHI,WAAP;AAKD,SARqB,CAAxB;AAUA,eAAOZ,OAAO,CAACC,OAAR,CAAgBa,eAAhB,CAAP;AACD;;AAED,aAAO,8BAAYN,GAAZ,EAAiBC,MAAjB,EACJP,IADI,CACC,CAAC;AAAEe,QAAAA,MAAF;AAAUC,QAAAA;AAAV,OAAD,KAA0B;AAC9B;AACA;AACA;AACA;AACA;AACA,cAAMC,QAAQ,GAAI,GAAEpB,SAAU,IAAGmB,QAAS,EAA1C;AACA,cAAME,MAAM,GAAG,IAAIC,UAAJ,CAAWJ,MAAX,EAAmB;AAAEE,UAAAA;AAAF,SAAnB,CAAf;AACAC,QAAAA,MAAM,CAACE,gBAAP;AACD,OAVI,EAWJpB,IAXI,CAWC,MAAMC,UAAU,CAACoB,WAAX,EAXP,CAAP;AAYD,KAhCD;;AAkCA,WAAOpB,UAAP;AACD,GAtCM,CAAP;AAuCD,CAxCM",
+  "sourcesContent": [
+    "import { isNodeBuiltinModule } from \"./isNodeBuiltinModule.js\"\nimport { Script } from \"vm\"\nimport { fetchModule } from \"./fetchModule.js\"\nimport \"systemjs/dist/system.js\"\n\nexport const createNodeSystem = ({ localRoot } = {}) => {\n  return Promise.resolve().then(() => {\n    const nodeSystem = new global.System.constructor()\n\n    nodeSystem.instantiate = function(url, parent) {\n      if (isNodeBuiltinModule(url)) {\n        const nodeBuiltinModuleExports = require(url) // eslint-disable-line import/no-dynamic-require\n        const bindings = {\n          ...nodeBuiltinModuleExports,\n          default: nodeBuiltinModuleExports,\n        }\n        const instantiateArgs = [\n          [],\n          (_export) => {\n            return {\n              execute: () => {\n                _export(bindings)\n              },\n            }\n          },\n        ]\n        return Promise.resolve(instantiateArgs)\n      }\n\n      return fetchModule(url, parent)\n        .then(({ source, location }) => {\n          // when System.import evaluates the code it has fetched\n          // it uses require('vm').runInThisContext(code, { filename }).\n          // This filename is very important because it allows the engine to be able\n          // to resolve source map location inside evaluated code like \n          // and also to know where the file is to resolve other file when evaluating code\n          const filename = `${localRoot}/${location}`\n          const script = new Script(source, { filename })\n          script.runInThisContext()\n        })\n        .then(() => nodeSystem.getRegister())\n    }\n\n    return nodeSystem\n  })\n}\n"
+  ]
+}

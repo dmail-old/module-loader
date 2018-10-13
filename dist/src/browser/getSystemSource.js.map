@@ -1,0 +1,24 @@
+{
+  "version": 3,
+  "sources": [
+    "..\\..\\..\\src\\browser\\getSystemSource.js"
+  ],
+  "names": [
+    "systemSourcePromise",
+    "getSystemSource",
+    "Promise",
+    "resolve",
+    "then",
+    "systemLocation",
+    "reject",
+    "fs",
+    "readFile",
+    "error",
+    "buffer",
+    "toString"
+  ],
+  "mappings": ";;;;;;;AAAA;;AACA;;;;AAEA,IAAIA,mBAAJ;;AAEO,MAAMC,eAAe,GAAG,MAAM;AACnC,MAAID,mBAAJ,EAAyB;AACvB,WAAOA,mBAAP;AACD;;AAEDA,EAAAA,mBAAmB,GAAGE,OAAO,CAACC,OAAR,GACnBC,IADmB,CACd,MAAM,2CADQ,EAEnBA,IAFmB,CAEbC,cAAD,IAAoB;AACxB,WAAO,IAAIH,OAAJ,CAAY,CAACC,OAAD,EAAUG,MAAV,KAAqB;AACtCC,kBAAGC,QAAH,CAAYH,cAAZ,EAA4B,CAACI,KAAD,EAAQC,MAAR,KAAmB;AAC7C,YAAID,KAAJ,EAAW;AACTH,UAAAA,MAAM,CAACG,KAAD,CAAN;AACD,SAFD,MAEO;AACLN,UAAAA,OAAO,CAACO,MAAM,CAACC,QAAP,EAAD,CAAP;AACD;AACF,OAND;AAOD,KARM,CAAP;AASD,GAZmB,CAAtB;AAcA,SAAOX,mBAAP;AACD,CApBM",
+  "sourcesContent": [
+    "import fs from \"fs\"\nimport { getSystemLocation } from \"./getSystemLocation.js\"\n\nlet systemSourcePromise\n\nexport const getSystemSource = () => {\n  if (systemSourcePromise) {\n    return systemSourcePromise\n  }\n\n  systemSourcePromise = Promise.resolve()\n    .then(() => getSystemLocation())\n    .then((systemLocation) => {\n      return new Promise((resolve, reject) => {\n        fs.readFile(systemLocation, (error, buffer) => {\n          if (error) {\n            reject(error)\n          } else {\n            resolve(buffer.toString())\n          }\n        })\n      })\n    })\n\n  return systemSourcePromise\n}\n"
+  ]
+}

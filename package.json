@@ -13,11 +13,7 @@
 	"module": "index.js",
 	"files": [
 		"dist",
-		"src",
-		"browser.js",
-		"browser.js.map",
-		"node.js",
-		"node.js.map"
+		"src"
 	],
 	"engines": {
 		"node": ">=8.6.0"

@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "sources": [
+    "..\\..\\..\\src\\browser\\index.js"
+  ],
+  "names": [],
+  "mappings": "AAAA",
+  "sourcesContent": [
+    "// here we can do stuff like window.System.prototype.instantiate = stuff\n"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "sources": [
+    "..\\index.js"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;;AACA",
+  "sourcesContent": [
+    "export { getBrowserSystemSource } from \"./src/browser/getBrowserSystemSource.js\"\nexport { createNodeSystem } from \"./src/node/createNodeSystem.js\"\n"
+  ]
+}
