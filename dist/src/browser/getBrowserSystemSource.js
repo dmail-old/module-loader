@@ -21,7 +21,7 @@ const babel = require("rollup-plugin-babel");
 
 const nodeResolve = require("rollup-plugin-node-resolve");
 
-const root = _path.default.resolve(__dirname, "../../");
+const root = _path.default.resolve(__dirname, "../../../");
 
 const inputFile = `${root}/src/browser/index.js`;
 
@@ -34,15 +34,14 @@ const getBrowserSystemSource = ({
   const bundlePromise = rollup({
     input: inputFile,
     plugins: [nodeResolve({
-      module: false,
-      jsnext: false
+      module: true
     }), babel({
       babelrc: false,
       exclude: "node_modules/**",
       plugins
-    })],
-    // skip rollup warnings
-    onwarn: () => {}
+    })] // skip rollup warnings
+    // onwarn: () => {},
+
   });
   const systemSourcePromise = (0, _getSystemSource.getSystemSource)();
   return Promise.all([bundlePromise, systemSourcePromise]).then(([bundle, systemSource]) => {

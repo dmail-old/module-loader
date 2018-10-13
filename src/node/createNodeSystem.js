@@ -7,7 +7,7 @@ export const createNodeSystem = ({ localRoot } = {}) => {
   return Promise.resolve().then(() => {
     const nodeSystem = new global.System.constructor()
 
-    nodeSystem.instantiate = function(url, parent) {
+    nodeSystem.instantiate = (url, parent) => {
       if (isNodeBuiltinModule(url)) {
         const nodeBuiltinModuleExports = require(url) // eslint-disable-line import/no-dynamic-require
         const bindings = {

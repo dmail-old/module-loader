@@ -1,0 +1,47 @@
+{
+  "version": 3,
+  "sources": [
+    "..\\..\\..\\src\\browser\\fetchUsingXHR.js"
+  ],
+  "names": [
+    "getHeadersFromXHR",
+    "xhr",
+    "headers",
+    "getAllResponseHeaders",
+    "lines",
+    "trim",
+    "split",
+    "headerMap",
+    "forEach",
+    "line",
+    "parts",
+    "name",
+    "shift",
+    "value",
+    "join",
+    "normalizeXhr",
+    "status",
+    "reason",
+    "statusText",
+    "body",
+    "responseText",
+    "fetchUsingXHR",
+    "url",
+    "Promise",
+    "resolve",
+    "reject",
+    "XMLHttpRequest",
+    "ontimeout",
+    "onerror",
+    "error",
+    "onload",
+    "onreadystatechange",
+    "readyState",
+    "open",
+    "send"
+  ],
+  "mappings": ";;;;;;;;;;;AAAA;AACA,MAAMA,iBAAiB,GAAIC,GAAD,IAAS;AACjC,QAAMC,OAAO,GAAGD,GAAG,CAACE,qBAAJ,EAAhB;AACA,QAAMC,KAAK,GAAGF,OAAO,CAACG,IAAR,GAAeC,KAAf,CAAqB,SAArB,CAAd;AAEA,QAAMC,SAAS,GAAG,EAAlB;AACAH,EAAAA,KAAK,CAACI,OAAN,CAAeC,IAAD,IAAU;AACtB,UAAMC,KAAK,GAAGD,IAAI,CAACH,KAAL,CAAW,IAAX,CAAd;AACA,UAAMK,IAAI,GAAGD,KAAK,CAACE,KAAN,EAAb;AACA,UAAMC,KAAK,GAAGH,KAAK,CAACI,IAAN,CAAW,IAAX,CAAd;AACAP,IAAAA,SAAS,CAACI,IAAD,CAAT,GAAkBE,KAAlB;AACD,GALD;AAMA,SAAON,SAAP;AACD,CAZD;;AAcA,MAAMQ,YAAY,GAAId,GAAD,IAAS;AAC5B,SAAO;AACLe,IAAAA,MAAM,EAAEf,GAAG,CAACe,MADP;AAELC,IAAAA,MAAM,EAAEhB,GAAG,CAACiB,UAFP;AAGLhB,IAAAA,OAAO,EAAEF,iBAAiB,CAACC,GAAD,CAHrB;AAILkB,IAAAA,IAAI,EAAElB,GAAG,CAACmB;AAJL,GAAP;AAMD,CAPD;;AASO,MAAMC,aAAa,GAAIC,GAAD,IAAS;AACpC,SAAO,IAAIC,OAAJ,CAAY,CAACC,OAAD,EAAUC,MAAV,KAAqB;AACtC,UAAMxB,GAAG,GAAG,IAAIyB,cAAJ,EAAZ;;AAEAzB,IAAAA,GAAG,CAAC0B,SAAJ,GAAgB,MAAM;AACpBF,MAAAA,MAAM,CAAC;AACLd,QAAAA,IAAI,EAAE;AADD,OAAD,CAAN;AAGD,KAJD;;AAMAV,IAAAA,GAAG,CAAC2B,OAAJ,GAAeC,KAAD,IAAW;AACvBJ,MAAAA,MAAM,CAACI,KAAD,CAAN;AACD,KAFD;;AAIA5B,IAAAA,GAAG,CAAC6B,MAAJ,GAAa,MAAM;AACjB,UAAI7B,GAAG,CAACe,MAAJ,KAAe,CAAnB,EAAsB;AACpBQ,QAAAA,OAAO,mBACFT,YAAY,CAACd,GAAD,CADV;AAELe,UAAAA,MAAM,EAAE;AAFH,WAAP;AAKA;AACD;;AACDQ,MAAAA,OAAO,mBACFT,YAAY,CAACd,GAAD,CADV,EAAP;AAGD,KAZD;;AAcAA,IAAAA,GAAG,CAAC8B,kBAAJ,GAAyB,MAAM;AAC7B,UAAI9B,GAAG,CAAC+B,UAAJ,KAAmB,CAAvB,EAA0B;AACxB;AACD,OAH4B,CAK7B;;;AACA,UAAI/B,GAAG,CAACe,MAAJ,KAAe,CAAnB,EAAsB;AACpB,YAAIf,GAAG,CAACmB,YAAR,EAAsB;AACpBnB,UAAAA,GAAG,CAAC6B,MAAJ;AACD;;AACD;AACD;;AAEDN,MAAAA,OAAO,CAACT,YAAY,CAACd,GAAD,CAAb,CAAP;AACD,KAdD;;AAgBAA,IAAAA,GAAG,CAACgC,IAAJ,CAAS,KAAT,EAAgBX,GAAhB,EAAqB,IAArB;AACArB,IAAAA,GAAG,CAACiC,IAAJ,CAAS,IAAT;AACD,GA7CM,CAAP;AA8CD,CA/CM",
+  "sourcesContent": [
+    "// https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders#Example\nconst getHeadersFromXHR = (xhr) => {\n  const headers = xhr.getAllResponseHeaders()\n  const lines = headers.trim().split(/[\\r\\n]+/)\n\n  const headerMap = {}\n  lines.forEach((line) => {\n    const parts = line.split(\": \")\n    const name = parts.shift()\n    const value = parts.join(\": \")\n    headerMap[name] = value\n  })\n  return headerMap\n}\n\nconst normalizeXhr = (xhr) => {\n  return {\n    status: xhr.status,\n    reason: xhr.statusText,\n    headers: getHeadersFromXHR(xhr),\n    body: xhr.responseText,\n  }\n}\n\nexport const fetchUsingXHR = (url) => {\n  return new Promise((resolve, reject) => {\n    const xhr = new XMLHttpRequest()\n\n    xhr.ontimeout = () => {\n      reject({\n        name: \"REQUEST_TIMEOUT_ERROR\",\n      })\n    }\n\n    xhr.onerror = (error) => {\n      reject(error)\n    }\n\n    xhr.onload = () => {\n      if (xhr.status === 0) {\n        resolve({\n          ...normalizeXhr(xhr),\n          status: 200,\n        })\n\n        return\n      }\n      resolve({\n        ...normalizeXhr(xhr),\n      })\n    }\n\n    xhr.onreadystatechange = () => {\n      if (xhr.readyState !== 4) {\n        return\n      }\n\n      // in Chrome on file:/// URLs, status is 0\n      if (xhr.status === 0) {\n        if (xhr.responseText) {\n          xhr.onload()\n        }\n        return\n      }\n\n      resolve(normalizeXhr(xhr))\n    }\n\n    xhr.open(\"GET\", url, true)\n    xhr.send(null)\n  })\n}\n"
+  ]
+}

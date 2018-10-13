@@ -23,7 +23,7 @@ const createNodeSystem = ({
   return Promise.resolve().then(() => {
     const nodeSystem = new global.System.constructor();
 
-    nodeSystem.instantiate = function (url, parent) {
+    nodeSystem.instantiate = (url, parent) => {
       if ((0, _isNodeBuiltinModule.isNodeBuiltinModule)(url)) {
         const nodeBuiltinModuleExports = require(url); // eslint-disable-line import/no-dynamic-require
 

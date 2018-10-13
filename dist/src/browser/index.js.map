@@ -3,9 +3,24 @@
   "sources": [
     "..\\..\\..\\src\\browser\\index.js"
   ],
-  "names": [],
-  "mappings": "AAAA",
+  "names": [
+    "browserSystem",
+    "window",
+    "System",
+    "constructor",
+    "instantiate",
+    "url",
+    "then",
+    "status",
+    "reason",
+    "body",
+    "JSON",
+    "parse",
+    "eval",
+    "getRegister"
+  ],
+  "mappings": ";;AAAA;;AACA;;AAEA,MAAMA,aAAa,GAAG,IAAIC,MAAM,CAACC,MAAP,CAAcC,WAAlB,EAAtB;;AAEAH,aAAa,CAACI,WAAd,GAA6BC,GAAD,IAAS;AACnC,SAAO,kCAAcA,GAAd,EAAmBC,IAAnB,CAAwB,CAAC;AAAEC,IAAAA,MAAF;AAAUC,IAAAA,MAAV;AAAkBC,IAAAA;AAAlB,GAAD,KAA8B;AAC3D,QAAIF,MAAM,KAAK,GAAf,EAAoB;AAClB;AACAE,MAAAA,IAAI,GAAGC,IAAI,CAACC,KAAL,CAAWF,IAAX,CAAP;AACA;AACD;;AAED,QAAIF,MAAM,IAAI,GAAV,IAAiBA,MAAM,GAAG,GAA9B,EAAmC;AACjC;AACA;AACA;AACA;AACA;AACA;AACAE,MAAAA,IAAI,GAAG,8CAAoBA,IAApB,EAA0B,MAAO,GAAEJ,GAAI,MAAvC,CAAP;AACAJ,MAAAA,MAAM,CAACW,IAAP,CAAYH,IAAZ;AACA,aAAOT,aAAa,CAACa,WAAd,EAAP;AACD,KAjB0D,CAmB3D;;AACD,GApBM,CAAP;AAqBD,CAtBD;;AAwBAZ,MAAM,CAACC,MAAP,GAAgBF,aAAhB",
   "sourcesContent": [
-    "// here we can do stuff like window.System.prototype.instantiate = stuff\n"
+    "import { sourceMappingURLMap } from \"./sourceMappingURLMap.js\"\nimport { fetchUsingXHR } from \"./fetchUsingXHR.js\"\n\nconst browserSystem = new window.System.constructor()\n\nbrowserSystem.instantiate = (url) => {\n  return fetchUsingXHR(url).then(({ status, reason, body }) => {\n    if (status === 500) {\n      // check reason\n      body = JSON.parse(body)\n      debugger\n    }\n\n    if (status >= 200 && status < 300) {\n      // faut absolutize le true... hum comment faire ?\n      // pour le moment un truc harcode degeu\n      // later we'll do this more clean, maybe server could return x-sourcemap-location\n      // or we could resolve the path to that dynamically\n      // like new URL(sourceMapURL, url)\n      // where sourceMapURL= './file.js.map' and url = 'http://localhost:port/build/file.js'\n      body = sourceMappingURLMap(body, () => `${url}.map`)\n      window.eval(body)\n      return browserSystem.getRegister()\n    }\n\n    // ??\n  })\n}\n\nwindow.System = browserSystem\n"
   ]
 }
