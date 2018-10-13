@@ -3,6 +3,19 @@ import { Script } from "vm"
 import { fetchModule } from "./fetchModule.js"
 import "systemjs/dist/system.js"
 
+const createRegisterForNameSpace = (namespace) => {
+  return [
+    [],
+    (_export) => {
+      return {
+        execute: () => {
+          _export(namespace)
+        },
+      }
+    },
+  ]
+}
+
 export const createNodeSystem = ({ localRoot } = {}) => {
   return Promise.resolve().then(() => {
     const nodeSystem = new global.System.constructor()
@@ -10,35 +23,38 @@ export const createNodeSystem = ({ localRoot } = {}) => {
     nodeSystem.instantiate = (url, parent) => {
       if (isNodeBuiltinModule(url)) {
         const nodeBuiltinModuleExports = require(url) // eslint-disable-line import/no-dynamic-require
-        const bindings = {
+
+        return createRegisterForNameSpace({
           ...nodeBuiltinModuleExports,
           default: nodeBuiltinModuleExports,
-        }
-        const instantiateArgs = [
-          [],
-          (_export) => {
-            return {
-              execute: () => {
-                _export(bindings)
-              },
-            }
-          },
-        ]
-        return Promise.resolve(instantiateArgs)
+        })
       }
 
-      return fetchModule(url, parent)
-        .then(({ source, location }) => {
-          // when System.import evaluates the code it has fetched
-          // it uses require('vm').runInThisContext(code, { filename }).
-          // This filename is very important because it allows the engine to be able
-          // to resolve source map location inside evaluated code like //# sourceMappingURL=./file.js.map
-          // and also to know where the file is to resolve other file when evaluating code
-          const filename = `${localRoot}/${location}`
-          const script = new Script(source, { filename })
+      return fetchModule(url, parent).then(({ status, reason, headers, body }) => {
+        if (status < 200 || status >= 300) {
+          return Promise.reject({ status, reason, headers, body })
+        }
+
+        // when System.import evaluates the code it has fetched
+        // it uses require('vm').runInThisContext(code, { filename }).
+        // This filename is very important because it allows the engine to be able
+        // to resolve source map location inside evaluated code like //# sourceMappingURL=./file.js.map
+        // and also to know where the file is to resolve other file when evaluating code
+        const filename = "x-location" in headers ? `${localRoot}/${headers["x-location"]}` : url
+        const script = new Script(body, { filename })
+        try {
           script.runInThisContext()
-        })
-        .then(() => nodeSystem.getRegister())
+        } catch (error) {
+          return Promise.reject({
+            code: "MODULE_INSTANTIATE_ERROR",
+            error,
+            url,
+            parent,
+          })
+        }
+
+        return nodeSystem.getRegister()
+      })
     }
 
     return nodeSystem
