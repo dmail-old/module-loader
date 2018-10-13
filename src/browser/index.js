@@ -13,6 +13,8 @@ browserSystem.instantiate = (url) => {
       // like new URL(sourceMapURL, url)
       // where sourceMapURL= './file.js.map' and url = 'http://localhost:port/build/file.js'
       body = sourceMappingURLMap(body, () => `${url}.map`)
+      body = `${body}
+${"//#"} sourceURL=${url}`
       window.eval(body)
       return browserSystem.getRegister()
     }
