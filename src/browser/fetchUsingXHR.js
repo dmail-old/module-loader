@@ -1,7 +1,11 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders#Example
 const getHeadersFromXHR = (xhr) => {
-  const headers = xhr.getAllResponseHeaders()
-  const lines = headers.trim().split(/[\r\n]+/)
+  const headersString = xhr.getAllResponseHeaders()
+  if (headersString === "") {
+    return {}
+  }
+
+  const lines = headersString.trim().split(/[\r\n]+/)
 
   const headerMap = {}
   lines.forEach((line) => {
@@ -10,6 +14,7 @@ const getHeadersFromXHR = (xhr) => {
     const value = parts.join(": ")
     headerMap[name] = value
   })
+
   return headerMap
 }
 
