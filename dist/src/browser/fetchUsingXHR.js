@@ -11,8 +11,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders#Example
 const getHeadersFromXHR = xhr => {
-  const headers = xhr.getAllResponseHeaders();
-  const lines = headers.trim().split(/[\r\n]+/);
+  const headersString = xhr.getAllResponseHeaders();
+
+  if (headersString === "") {
+    return {};
+  }
+
+  const lines = headersString.trim().split(/[\r\n]+/);
   const headerMap = {};
   lines.forEach(line => {
     const parts = line.split(": ");

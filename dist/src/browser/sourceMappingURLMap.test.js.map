@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "..\\..\\..\\src\\browser\\sourceMappingURLMap.test.js"
+    "../../../src/browser/sourceMappingURLMap.test.js"
   ],
   "names": [
     "source",

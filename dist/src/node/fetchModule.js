@@ -42,12 +42,23 @@ const fetchModuleFromFileSystem = key => {
       });
     }).then(source => {
       return {
-        source
+        status: 200,
+        reason: "",
+        headers: {},
+        body: source
       };
     });
   }
 
   return undefined;
+};
+
+const getHeaderMapFromResponse = response => {
+  const headerMap = {};
+  response.headers.forEach((value, name) => {
+    headerMap[name] = value;
+  });
+  return headerMap;
 };
 
 const fetchModuleFromServer = key => {
@@ -56,10 +67,12 @@ const fetchModuleFromServer = key => {
       headers: {
         "user-agent": `node/${nodeVersion}`
       }
-    }).then(response => response.text().then(source => {
+    }).then(response => response.text().then(text => {
       return {
-        location: response.headers.get("x-location"),
-        source
+        status: response.status,
+        reason: response.statusText,
+        headers: getHeaderMapFromResponse(response),
+        body: text
       };
     }));
   }

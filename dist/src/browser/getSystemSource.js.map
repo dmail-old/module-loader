@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "..\\..\\..\\src\\browser\\getSystemSource.js"
+    "../../../src/browser/getSystemSource.js"
   ],
   "names": [
     "systemSourcePromise",

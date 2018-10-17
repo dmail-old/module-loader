@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "..\\..\\..\\src\\browser\\getBrowserSystemSource.js"
+    "../../../src/browser/getBrowserSystemSource.js"
   ],
   "names": [
     "rollup",

@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "..\\..\\..\\src\\browser\\index.js"
+    "../../../src/browser/index.js"
   ],
   "names": [
     "browserSystem",
@@ -10,17 +10,21 @@
     "constructor",
     "instantiate",
     "url",
+    "parent",
     "then",
     "status",
+    "headers",
     "reason",
     "body",
-    "JSON",
-    "parse",
+    "Promise",
+    "reject",
     "eval",
+    "error",
+    "code",
     "getRegister"
   ],
-  "mappings": ";;AAAA;;AACA;;AAEA,MAAMA,aAAa,GAAG,IAAIC,MAAM,CAACC,MAAP,CAAcC,WAAlB,EAAtB;;AAEAH,aAAa,CAACI,WAAd,GAA6BC,GAAD,IAAS;AACnC,SAAO,kCAAcA,GAAd,EAAmBC,IAAnB,CAAwB,CAAC;AAAEC,IAAAA,MAAF;AAAUC,IAAAA,MAAV;AAAkBC,IAAAA;AAAlB,GAAD,KAA8B;AAC3D,QAAIF,MAAM,KAAK,GAAf,EAAoB;AAClB;AACAE,MAAAA,IAAI,GAAGC,IAAI,CAACC,KAAL,CAAWF,IAAX,CAAP;AACA;AACD;;AAED,QAAIF,MAAM,IAAI,GAAV,IAAiBA,MAAM,GAAG,GAA9B,EAAmC;AACjC;AACA;AACA;AACA;AACA;AACA;AACAE,MAAAA,IAAI,GAAG,8CAAoBA,IAApB,EAA0B,MAAO,GAAEJ,GAAI,MAAvC,CAAP;AACAJ,MAAAA,MAAM,CAACW,IAAP,CAAYH,IAAZ;AACA,aAAOT,aAAa,CAACa,WAAd,EAAP;AACD,KAjB0D,CAmB3D;;AACD,GApBM,CAAP;AAqBD,CAtBD;;AAwBAZ,MAAM,CAACC,MAAP,GAAgBF,aAAhB",
+  "mappings": ";;AAAA;;AAEA,MAAMA,aAAa,GAAG,IAAIC,MAAM,CAACC,MAAP,CAAcC,WAAlB,EAAtB;;AAEAH,aAAa,CAACI,WAAd,GAA4B,CAACC,GAAD,EAAMC,MAAN,KAAiB;AAC3C,SAAO,kCAAcD,GAAd,EAAmBE,IAAnB,CAAwB,CAAC;AAAEC,IAAAA,MAAF;AAAUC,IAAAA,OAAV;AAAmBC,IAAAA,MAAnB;AAA2BC,IAAAA;AAA3B,GAAD,KAAuC;AACpE,QAAIH,MAAM,GAAG,GAAT,IAAgBA,MAAM,IAAI,GAA9B,EAAmC;AACjC,aAAOI,OAAO,CAACC,MAAR,CAAe;AAAEL,QAAAA,MAAF;AAAUE,QAAAA,MAAV;AAAkBD,QAAAA,OAAlB;AAA2BE,QAAAA;AAA3B,OAAf,CAAP;AACD;;AAEDA,IAAAA,IAAI,GAAI,GAAEA,IAAK;EACjB,KAAM,cAAaN,GAAI,EADrB;;AAGA,QAAI;AACFJ,MAAAA,MAAM,CAACa,IAAP,CAAYH,IAAZ;AACD,KAFD,CAEE,OAAOI,KAAP,EAAc;AACd,aAAOH,OAAO,CAACC,MAAR,CAAe;AACpBG,QAAAA,IAAI,EAAE,0BADc;AAEpBD,QAAAA,KAFoB;AAGpBV,QAAAA,GAHoB;AAIpBC,QAAAA;AAJoB,OAAf,CAAP;AAMD;;AAED,WAAON,aAAa,CAACiB,WAAd,EAAP;AACD,GApBM,CAAP;AAqBD,CAtBD;;AAwBAhB,MAAM,CAACC,MAAP,GAAgBF,aAAhB",
   "sourcesContent": [
-    "import { sourceMappingURLMap } from \"./sourceMappingURLMap.js\"\nimport { fetchUsingXHR } from \"./fetchUsingXHR.js\"\n\nconst browserSystem = new window.System.constructor()\n\nbrowserSystem.instantiate = (url) => {\n  return fetchUsingXHR(url).then(({ status, reason, body }) => {\n    if (status === 500) {\n      // check reason\n      body = JSON.parse(body)\n      debugger\n    }\n\n    if (status >= 200 && status < 300) {\n      // faut absolutize le true... hum comment faire ?\n      // pour le moment un truc harcode degeu\n      // later we'll do this more clean, maybe server could return x-sourcemap-location\n      // or we could resolve the path to that dynamically\n      // like new URL(sourceMapURL, url)\n      // where sourceMapURL= './file.js.map' and url = 'http://localhost:port/build/file.js'\n      body = sourceMappingURLMap(body, () => `${url}.map`)\n      window.eval(body)\n      return browserSystem.getRegister()\n    }\n\n    // ??\n  })\n}\n\nwindow.System = browserSystem\n"
+    "import { fetchUsingXHR } from \"./fetchUsingXHR.js\"\n\nconst browserSystem = new window.System.constructor()\n\nbrowserSystem.instantiate = (url, parent) => {\n  return fetchUsingXHR(url).then(({ status, headers, reason, body }) => {\n    if (status < 200 || status >= 400) {\n      return Promise.reject({ status, reason, headers, body })\n    }\n\n    body = `${body}\n${\"//#\"} sourceURL=${url}`\n\n    try {\n      window.eval(body)\n    } catch (error) {\n      return Promise.reject({\n        code: \"MODULE_INSTANTIATE_ERROR\",\n        error,\n        url,\n        parent,\n      })\n    }\n\n    return browserSystem.getRegister()\n  })\n}\n\nwindow.System = browserSystem\n"
   ]
 }

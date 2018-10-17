@@ -1,17 +1,15 @@
 {
   "version": 3,
   "sources": [
-    "..\\..\\..\\src\\browser\\getSystemLocation.js"
+    "../../../src/browser/getSystemLocation.js"
   ],
   "names": [
-    "root",
-    "path",
-    "resolve",
-    "__dirname",
-    "getSystemLocation"
+    "getSystemLocation",
+    "require",
+    "resolve"
   ],
-  "mappings": ";;;;;;;AAAA;;;;AAEA,MAAMA,IAAI,GAAGC,cAAKC,OAAL,CAAaC,SAAb,EAAwB,WAAxB,CAAb;;AAEO,MAAMC,iBAAiB,GAAG,MAAM;AACrC,SAAQ,GAAEJ,IAAK,uCAAf;AACD,CAFM",
+  "mappings": ";;;;;;;AAAO,MAAMA,iBAAiB,GAAG,MAAM;AACrC,SAAOC,OAAO,CAACC,OAAR,CAAgB,yBAAhB,CAAP;AACD,CAFM",
   "sourcesContent": [
-    "import path from \"path\"\n\nconst root = path.resolve(__dirname, \"../../../\")\n\nexport const getSystemLocation = () => {\n  return `${root}/node_modules/systemjs/dist/system.js`\n}\n"
+    "export const getSystemLocation = () => {\n  return require.resolve(\"systemjs/dist/system.js\")\n}\n"
   ]
 }
