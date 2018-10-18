@@ -1,4 +1,5 @@
 import { fetchUsingXHR } from "./fetchUsingXHR.js"
+import { getNamespaceToRegister } from "../getNamespaceToRegister.js"
 
 const browserSystem = new window.System.constructor()
 
@@ -8,21 +9,31 @@ browserSystem.instantiate = (url, parent) => {
       return Promise.reject({ status, reason, headers, body })
     }
 
-    body = `${body}
+    if (headers["content-type"] === "application/javascript") {
+      body = `${body}
 ${"//#"} sourceURL=${url}`
 
-    try {
-      window.eval(body)
-    } catch (error) {
-      return Promise.reject({
-        code: "MODULE_INSTANTIATE_ERROR",
-        error,
-        url,
-        parent,
-      })
+      try {
+        window.eval(body)
+      } catch (error) {
+        return Promise.reject({
+          code: "MODULE_INSTANTIATE_ERROR",
+          error,
+          url,
+          parent,
+        })
+      }
+
+      return browserSystem.getRegister()
     }
 
-    return browserSystem.getRegister()
+    if (headers["content-type"] === "application/json") {
+      return getNamespaceToRegister(() => {
+        return {
+          default: JSON.parse(body),
+        }
+      })
+    }
   })
 }
 

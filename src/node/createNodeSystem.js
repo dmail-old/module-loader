@@ -2,19 +2,7 @@ import { isNodeBuiltinModule } from "./isNodeBuiltinModule.js"
 import { Script } from "vm"
 import { fetchModule } from "./fetchModule.js"
 import "systemjs/dist/system.js"
-
-const createRegisterForNameSpace = (namespace) => {
-  return [
-    [],
-    (_export) => {
-      return {
-        execute: () => {
-          _export(namespace)
-        },
-      }
-    },
-  ]
-}
+import { getNamespaceToRegister } from "../getNamespaceToRegister.js"
 
 export const createNodeSystem = ({ localRoot } = {}) => {
   return Promise.resolve().then(() => {
@@ -22,11 +10,12 @@ export const createNodeSystem = ({ localRoot } = {}) => {
 
     nodeSystem.instantiate = (url, parent) => {
       if (isNodeBuiltinModule(url)) {
-        const nodeBuiltinModuleExports = require(url) // eslint-disable-line import/no-dynamic-require
-
-        return createRegisterForNameSpace({
-          ...nodeBuiltinModuleExports,
-          default: nodeBuiltinModuleExports,
+        return getNamespaceToRegister(() => {
+          const nodeBuiltinModuleExports = require(url) // eslint-disable-line import/no-dynamic-require
+          return {
+            ...nodeBuiltinModuleExports,
+            default: nodeBuiltinModuleExports,
+          }
         })
       }
 
