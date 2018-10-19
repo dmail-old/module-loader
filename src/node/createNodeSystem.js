@@ -4,7 +4,7 @@ import { fetchModule } from "./fetchModule.js"
 import "systemjs/dist/system.js"
 import { getNamespaceToRegister } from "../getNamespaceToRegister.js"
 
-export const createNodeSystem = ({ localRoot } = {}) => {
+export const createNodeSystem = ({ urlToFilename = (url) => url }) => {
   const nodeSystem = new global.System.constructor()
 
   nodeSystem.instantiate = (url, parent) => {
@@ -23,12 +23,10 @@ export const createNodeSystem = ({ localRoot } = {}) => {
         return Promise.reject({ status, reason, headers, body })
       }
 
-      // when System.import evaluates the code it has fetched
-      // it uses require('vm').runInThisContext(code, { filename }).
-      // This filename is very important because it allows the engine to be able
-      // to resolve source map location inside evaluated code like //# sourceMappingURL=./file.js.map
-      // and also to know where the file is to resolve other file when evaluating code
-      const filename = "x-location" in headers ? `${localRoot}/${headers["x-location"]}` : url
+      // This filename is very important because it allows the engine (like vscode) to be know
+      // that the evluated file is in fact on the filesystem
+      // (very important for debugging and sourcenap resolution)
+      const filename = urlToFilename(url)
       const script = new Script(body, { filename })
       try {
         script.runInThisContext()

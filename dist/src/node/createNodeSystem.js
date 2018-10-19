@@ -20,8 +20,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 const createNodeSystem = ({
-  localRoot
-} = {}) => {
+  urlToFilename = url => url
+}) => {
   const nodeSystem = new global.System.constructor();
 
   nodeSystem.instantiate = (url, parent) => {
@@ -49,14 +49,12 @@ const createNodeSystem = ({
           headers,
           body
         });
-      } // when System.import evaluates the code it has fetched
-      // it uses require('vm').runInThisContext(code, { filename }).
-      // This filename is very important because it allows the engine to be able
-      // to resolve source map location inside evaluated code like 
-      // and also to know where the file is to resolve other file when evaluating code
+      } // This filename is very important because it allows the engine (like vscode) to be know
+      // that the evluated file is in fact on the filesystem
+      // (very important for debugging and sourcenap resolution)
 
 
-      const filename = "x-location" in headers ? `${localRoot}/${headers["x-location"]}` : url;
+      const filename = urlToFilename(url);
       const script = new _vm.Script(body, {
         filename
       });
