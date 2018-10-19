@@ -29,8 +29,8 @@ const getBrowserSystemSource = ({
   name = "unknown",
   version = "0.0.0"
 } = {}) => {
-  const pluginNames = (0, _projectStructureCompileBabel.getPluginNamesForPlatform)(_projectStructureCompileBabel.compatMapBabel, name, version);
-  const plugins = (0, _projectStructureCompileBabel.getPluginsFromNames)(pluginNames);
+  const pluginNames = (0, _projectStructureCompileBabel.platformToPluginNames)(_projectStructureCompileBabel.compatMapBabel, name, version);
+  const plugins = pluginNames.map(_projectStructureCompileBabel.pluginNameToPlugin);
   const bundlePromise = rollup({
     input: inputFile,
     plugins: [nodeResolve({

@@ -2,6 +2,8 @@
 
 var _fetchUsingXHR = require("./fetchUsingXHR.js");
 
+var _getNamespaceToRegister = require("../getNamespaceToRegister.js");
+
 const browserSystem = new window.System.constructor();
 
 browserSystem.instantiate = (url, parent) => {
@@ -20,21 +22,31 @@ browserSystem.instantiate = (url, parent) => {
       });
     }
 
-    body = `${body}
+    if (headers["content-type"] === "application/javascript") {
+      body = `${body}
 ${"//#"} sourceURL=${url}`;
 
-    try {
-      window.eval(body);
-    } catch (error) {
-      return Promise.reject({
-        code: "MODULE_INSTANTIATE_ERROR",
-        error,
-        url,
-        parent
-      });
+      try {
+        window.eval(body);
+      } catch (error) {
+        return Promise.reject({
+          code: "MODULE_INSTANTIATE_ERROR",
+          error,
+          url,
+          parent
+        });
+      }
+
+      return browserSystem.getRegister();
     }
 
-    return browserSystem.getRegister();
+    if (headers["content-type"] === "application/json") {
+      return (0, _getNamespaceToRegister.getNamespaceToRegister)(() => {
+        return {
+          default: JSON.parse(body)
+        };
+      });
+    }
   });
 };
 

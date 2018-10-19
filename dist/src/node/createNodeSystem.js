@@ -13,19 +13,11 @@ var _fetchModule = require("./fetchModule.js");
 
 require("systemjs/dist/system.js");
 
+var _getNamespaceToRegister = require("../getNamespaceToRegister.js");
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-const createRegisterForNameSpace = namespace => {
-  return [[], _export => {
-    return {
-      execute: () => {
-        _export(namespace);
-      }
-    };
-  }];
-};
 
 const createNodeSystem = ({
   localRoot
@@ -35,12 +27,14 @@ const createNodeSystem = ({
 
     nodeSystem.instantiate = (url, parent) => {
       if ((0, _isNodeBuiltinModule.isNodeBuiltinModule)(url)) {
-        const nodeBuiltinModuleExports = require(url); // eslint-disable-line import/no-dynamic-require
+        return (0, _getNamespaceToRegister.getNamespaceToRegister)(() => {
+          const nodeBuiltinModuleExports = require(url); // eslint-disable-line import/no-dynamic-require
 
 
-        return createRegisterForNameSpace(_objectSpread({}, nodeBuiltinModuleExports, {
-          default: nodeBuiltinModuleExports
-        }));
+          return _objectSpread({}, nodeBuiltinModuleExports, {
+            default: nodeBuiltinModuleExports
+          });
+        });
       }
 
       return (0, _fetchModule.fetchModule)(url, parent).then(({
