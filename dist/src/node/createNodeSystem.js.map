@@ -6,9 +6,6 @@
   "names": [
     "createNodeSystem",
     "localRoot",
-    "Promise",
-    "resolve",
-    "then",
     "nodeSystem",
     "global",
     "System",
@@ -19,10 +16,12 @@
     "nodeBuiltinModuleExports",
     "require",
     "default",
+    "then",
     "status",
     "reason",
     "headers",
     "body",
+    "Promise",
     "reject",
     "filename",
     "script",
@@ -32,8 +31,8 @@
     "code",
     "getRegister"
   ],
-  "mappings": ";;;;;;;AAAA;;AACA;;AACA;;AACA;;AACA;;;;;;AAEO,MAAMA,gBAAgB,GAAG,CAAC;AAAEC,EAAAA;AAAF,IAAgB,EAAjB,KAAwB;AACtD,SAAOC,OAAO,CAACC,OAAR,GAAkBC,IAAlB,CAAuB,MAAM;AAClC,UAAMC,UAAU,GAAG,IAAIC,MAAM,CAACC,MAAP,CAAcC,WAAlB,EAAnB;;AAEAH,IAAAA,UAAU,CAACI,WAAX,GAAyB,CAACC,GAAD,EAAMC,MAAN,KAAiB;AACxC,UAAI,8CAAoBD,GAApB,CAAJ,EAA8B;AAC5B,eAAO,oDAAuB,MAAM;AAClC,gBAAME,wBAAwB,GAAGC,OAAO,CAACH,GAAD,CAAxC,CADkC,CACY;;;AAC9C,mCACKE,wBADL;AAEEE,YAAAA,OAAO,EAAEF;AAFX;AAID,SANM,CAAP;AAOD;;AAED,aAAO,8BAAYF,GAAZ,EAAiBC,MAAjB,EAAyBP,IAAzB,CAA8B,CAAC;AAAEW,QAAAA,MAAF;AAAUC,QAAAA,MAAV;AAAkBC,QAAAA,OAAlB;AAA2BC,QAAAA;AAA3B,OAAD,KAAuC;AAC1E,YAAIH,MAAM,GAAG,GAAT,IAAgBA,MAAM,IAAI,GAA9B,EAAmC;AACjC,iBAAOb,OAAO,CAACiB,MAAR,CAAe;AAAEJ,YAAAA,MAAF;AAAUC,YAAAA,MAAV;AAAkBC,YAAAA,OAAlB;AAA2BC,YAAAA;AAA3B,WAAf,CAAP;AACD,SAHyE,CAK1E;AACA;AACA;AACA;AACA;;;AACA,cAAME,QAAQ,GAAG,gBAAgBH,OAAhB,GAA2B,GAAEhB,SAAU,IAAGgB,OAAO,CAAC,YAAD,CAAe,EAAhE,GAAoEP,GAArF;AACA,cAAMW,MAAM,GAAG,IAAIC,UAAJ,CAAWJ,IAAX,EAAiB;AAAEE,UAAAA;AAAF,SAAjB,CAAf;;AACA,YAAI;AACFC,UAAAA,MAAM,CAACE,gBAAP;AACD,SAFD,CAEE,OAAOC,KAAP,EAAc;AACd,iBAAOtB,OAAO,CAACiB,MAAR,CAAe;AACpBM,YAAAA,IAAI,EAAE,0BADc;AAEpBD,YAAAA,KAFoB;AAGpBd,YAAAA,GAHoB;AAIpBC,YAAAA;AAJoB,WAAf,CAAP;AAMD;;AAED,eAAON,UAAU,CAACqB,WAAX,EAAP;AACD,OAxBM,CAAP;AAyBD,KApCD;;AAsCA,WAAOrB,UAAP;AACD,GA1CM,CAAP;AA2CD,CA5CM",
+  "mappings": ";;;;;;;AAAA;;AACA;;AACA;;AACA;;AACA;;;;;;AAEO,MAAMA,gBAAgB,GAAG,CAAC;AAAEC,EAAAA;AAAF,IAAgB,EAAjB,KAAwB;AACtD,QAAMC,UAAU,GAAG,IAAIC,MAAM,CAACC,MAAP,CAAcC,WAAlB,EAAnB;;AAEAH,EAAAA,UAAU,CAACI,WAAX,GAAyB,CAACC,GAAD,EAAMC,MAAN,KAAiB;AACxC,QAAI,8CAAoBD,GAApB,CAAJ,EAA8B;AAC5B,aAAO,oDAAuB,MAAM;AAClC,cAAME,wBAAwB,GAAGC,OAAO,CAACH,GAAD,CAAxC,CADkC,CACY;;;AAC9C,iCACKE,wBADL;AAEEE,UAAAA,OAAO,EAAEF;AAFX;AAID,OANM,CAAP;AAOD;;AAED,WAAO,8BAAYF,GAAZ,EAAiBC,MAAjB,EAAyBI,IAAzB,CAA8B,CAAC;AAAEC,MAAAA,MAAF;AAAUC,MAAAA,MAAV;AAAkBC,MAAAA,OAAlB;AAA2BC,MAAAA;AAA3B,KAAD,KAAuC;AAC1E,UAAIH,MAAM,GAAG,GAAT,IAAgBA,MAAM,IAAI,GAA9B,EAAmC;AACjC,eAAOI,OAAO,CAACC,MAAR,CAAe;AAAEL,UAAAA,MAAF;AAAUC,UAAAA,MAAV;AAAkBC,UAAAA,OAAlB;AAA2BC,UAAAA;AAA3B,SAAf,CAAP;AACD,OAHyE,CAK1E;AACA;AACA;AACA;AACA;;;AACA,YAAMG,QAAQ,GAAG,gBAAgBJ,OAAhB,GAA2B,GAAEd,SAAU,IAAGc,OAAO,CAAC,YAAD,CAAe,EAAhE,GAAoER,GAArF;AACA,YAAMa,MAAM,GAAG,IAAIC,UAAJ,CAAWL,IAAX,EAAiB;AAAEG,QAAAA;AAAF,OAAjB,CAAf;;AACA,UAAI;AACFC,QAAAA,MAAM,CAACE,gBAAP;AACD,OAFD,CAEE,OAAOC,KAAP,EAAc;AACd,eAAON,OAAO,CAACC,MAAR,CAAe;AACpBM,UAAAA,IAAI,EAAE,0BADc;AAEpBD,UAAAA,KAFoB;AAGpBhB,UAAAA,GAHoB;AAIpBC,UAAAA;AAJoB,SAAf,CAAP;AAMD;;AAED,aAAON,UAAU,CAACuB,WAAX,EAAP;AACD,KAxBM,CAAP;AAyBD,GApCD;;AAsCA,SAAOvB,UAAP;AACD,CA1CM",
   "sourcesContent": [
-    "import { isNodeBuiltinModule } from \"./isNodeBuiltinModule.js\"\nimport { Script } from \"vm\"\nimport { fetchModule } from \"./fetchModule.js\"\nimport \"systemjs/dist/system.js\"\nimport { getNamespaceToRegister } from \"../getNamespaceToRegister.js\"\n\nexport const createNodeSystem = ({ localRoot } = {}) => {\n  return Promise.resolve().then(() => {\n    const nodeSystem = new global.System.constructor()\n\n    nodeSystem.instantiate = (url, parent) => {\n      if (isNodeBuiltinModule(url)) {\n        return getNamespaceToRegister(() => {\n          const nodeBuiltinModuleExports = require(url) // eslint-disable-line import/no-dynamic-require\n          return {\n            ...nodeBuiltinModuleExports,\n            default: nodeBuiltinModuleExports,\n          }\n        })\n      }\n\n      return fetchModule(url, parent).then(({ status, reason, headers, body }) => {\n        if (status < 200 || status >= 300) {\n          return Promise.reject({ status, reason, headers, body })\n        }\n\n        // when System.import evaluates the code it has fetched\n        // it uses require('vm').runInThisContext(code, { filename }).\n        // This filename is very important because it allows the engine to be able\n        // to resolve source map location inside evaluated code like \n        // and also to know where the file is to resolve other file when evaluating code\n        const filename = \"x-location\" in headers ? `${localRoot}/${headers[\"x-location\"]}` : url\n        const script = new Script(body, { filename })\n        try {\n          script.runInThisContext()\n        } catch (error) {\n          return Promise.reject({\n            code: \"MODULE_INSTANTIATE_ERROR\",\n            error,\n            url,\n            parent,\n          })\n        }\n\n        return nodeSystem.getRegister()\n      })\n    }\n\n    return nodeSystem\n  })\n}\n"
+    "import { isNodeBuiltinModule } from \"./isNodeBuiltinModule.js\"\nimport { Script } from \"vm\"\nimport { fetchModule } from \"./fetchModule.js\"\nimport \"systemjs/dist/system.js\"\nimport { getNamespaceToRegister } from \"../getNamespaceToRegister.js\"\n\nexport const createNodeSystem = ({ localRoot } = {}) => {\n  const nodeSystem = new global.System.constructor()\n\n  nodeSystem.instantiate = (url, parent) => {\n    if (isNodeBuiltinModule(url)) {\n      return getNamespaceToRegister(() => {\n        const nodeBuiltinModuleExports = require(url) // eslint-disable-line import/no-dynamic-require\n        return {\n          ...nodeBuiltinModuleExports,\n          default: nodeBuiltinModuleExports,\n        }\n      })\n    }\n\n    return fetchModule(url, parent).then(({ status, reason, headers, body }) => {\n      if (status < 200 || status >= 300) {\n        return Promise.reject({ status, reason, headers, body })\n      }\n\n      // when System.import evaluates the code it has fetched\n      // it uses require('vm').runInThisContext(code, { filename }).\n      // This filename is very important because it allows the engine to be able\n      // to resolve source map location inside evaluated code like \n      // and also to know where the file is to resolve other file when evaluating code\n      const filename = \"x-location\" in headers ? `${localRoot}/${headers[\"x-location\"]}` : url\n      const script = new Script(body, { filename })\n      try {\n        script.runInThisContext()\n      } catch (error) {\n        return Promise.reject({\n          code: \"MODULE_INSTANTIATE_ERROR\",\n          error,\n          url,\n          parent,\n        })\n      }\n\n      return nodeSystem.getRegister()\n    })\n  }\n\n  return nodeSystem\n}\n"
   ]
 }
