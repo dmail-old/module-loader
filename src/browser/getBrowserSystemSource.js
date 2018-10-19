@@ -1,7 +1,7 @@
 import {
   compatMapBabel,
-  getPluginNamesForPlatform,
-  getPluginsFromNames,
+  platformToPluginNames,
+  pluginNameToPlugin,
 } from "@dmail/project-structure-compile-babel"
 import path from "path"
 import { getSystemSource } from "./getSystemSource.js"
@@ -14,8 +14,8 @@ const root = path.resolve(__dirname, "../../../")
 const inputFile = `${root}/src/browser/index.js`
 
 export const getBrowserSystemSource = ({ name = "unknown", version = "0.0.0" } = {}) => {
-  const pluginNames = getPluginNamesForPlatform(compatMapBabel, name, version)
-  const plugins = getPluginsFromNames(pluginNames)
+  const pluginNames = platformToPluginNames(compatMapBabel, name, version)
+  const plugins = pluginNames.map(pluginNameToPlugin)
 
   const bundlePromise = rollup({
     input: inputFile,
