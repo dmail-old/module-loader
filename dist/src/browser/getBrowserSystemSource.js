@@ -24,13 +24,42 @@ const nodeResolve = require("rollup-plugin-node-resolve");
 const root = _path.default.resolve(__dirname, "../../../");
 
 const inputFile = `${root}/src/browser/index.js`;
+const pluginMap = (0, _projectStructureCompileBabel.pluginOptionMapToPluginMap)({
+  "proposal-async-generator-functions": {},
+  "proposal-json-strings": {},
+  "proposal-object-rest-spread": {},
+  "proposal-optional-catch-binding": {},
+  "proposal-unicode-property-regex": {},
+  "transform-arrow-functions": {},
+  "transform-async-to-generator": {},
+  "transform-block-scoped-functions": {},
+  "transform-block-scoping": {},
+  "transform-classes": {},
+  "transform-computed-properties": {},
+  "transform-destructuring": {},
+  "transform-dotall-regex": {},
+  "transform-duplicate-keys": {},
+  "transform-exponentiation-operator": {},
+  "transform-for-of": {},
+  "transform-function-name": {},
+  "transform-literals": {},
+  "transform-new-target": {},
+  "transform-object-super": {},
+  "transform-parameters": {},
+  "transform-regenerator": {},
+  "transform-shorthand-properties": {},
+  "transform-spread": {},
+  "transform-sticky-regex": {},
+  "transform-template-literals": {},
+  "transform-typeof-symbol": {},
+  "transform-unicode-regex": {}
+});
 
 const getBrowserSystemSource = ({
   name = "unknown",
   version = "0.0.0"
 } = {}) => {
-  const pluginNames = (0, _projectStructureCompileBabel.platformToPluginNames)(_projectStructureCompileBabel.compatMapBabel, name, version);
-  const plugins = pluginNames.map(_projectStructureCompileBabel.pluginNameToPlugin);
+  const plugins = (0, _projectStructureCompileBabel.pluginMapToPluginsForPlatform)(pluginMap, name, version);
   const bundlePromise = rollup({
     input: inputFile,
     plugins: [nodeResolve({
@@ -39,7 +68,7 @@ const getBrowserSystemSource = ({
       babelrc: false,
       exclude: "node_modules/**",
       plugins
-    })] // skip rollup warnings
+    })] // comment line below to skip rollup warnings
     // onwarn: () => {},
 
   });
