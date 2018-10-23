@@ -12,7 +12,7 @@ const getHeadersFromXHR = (xhr) => {
     const parts = line.split(": ")
     const name = parts.shift()
     const value = parts.join(": ")
-    headerMap[name.toLowserCase()] = value
+    headerMap[name.toLowerCase()] = value
   })
 
   return headerMap
