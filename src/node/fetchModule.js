@@ -9,8 +9,6 @@ const isWindows =
   typeof process.platform === "string" &&
   process.platform.match(/^win/)
 
-const nodeVersion = process.version.slice(1)
-
 const fileUrlToPath = (fileUrl) => {
   if (fileUrl.substr(0, 7) !== "file://") {
     throw new RangeError(`${fileUrl} is not a valid file url`)
@@ -47,9 +45,13 @@ const getHeaderMapFromResponse = (response) => {
   return headerMap
 }
 
-const fetchModuleFromServer = (key) => {
-  if (key.indexOf("http:") === 0 || key.indexOf("https:") === 0) {
-    return fetch(key, { headers: { "user-agent": `node/${nodeVersion}` } }).then((response) =>
+const fetchModuleFromServer = (url, parent) => {
+  if (url.indexOf("http:") === 0 || url.indexOf("https:") === 0) {
+    return fetch(url, {
+      headers: {
+        "x-module-referer": parent || url,
+      },
+    }).then((response) =>
       response.text().then((text) => {
         return {
           status: response.status,
@@ -63,15 +65,15 @@ const fetchModuleFromServer = (key) => {
   return undefined
 }
 
-export const fetchModule = (key) => {
-  return Promise.resolve(fetchModuleFromFileSystem(key)).then((data) => {
+export const fetchModule = (url, parent) => {
+  return Promise.resolve(fetchModuleFromFileSystem(url, parent)).then((data) => {
     return data
       ? data
-      : Promise.resolve(fetchModuleFromServer(key)).then((data) => {
+      : Promise.resolve(fetchModuleFromServer(url, parent)).then((data) => {
           if (data) {
             return data
           }
-          throw new Error(`unsupported protocol for module ${key}`)
+          throw new Error(`unsupported protocol for module ${url}`)
         })
   })
 }

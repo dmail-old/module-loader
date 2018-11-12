@@ -27,7 +27,7 @@ const normalizeXhr = (xhr) => {
   }
 }
 
-export const fetchUsingXHR = (url) => {
+export const fetchUsingXHR = (url, headers = {}) => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest()
 
@@ -72,6 +72,9 @@ export const fetchUsingXHR = (url) => {
     }
 
     xhr.open("GET", url, true)
+    Object.keys(headers).forEach((key) => {
+      xhr.setRequestHeader(key, headers[key])
+    })
     xhr.send(null)
   })
 }
