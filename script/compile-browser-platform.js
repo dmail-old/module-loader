@@ -10,8 +10,7 @@ const babel = require("rollup-plugin-babel")
 const nodeResolve = require("rollup-plugin-node-resolve")
 
 const localRoot = path.resolve(__dirname, "../")
-const inputFile = `${localRoot}/src/platform/browser/index.js`
-debugger
+const inputFile = `src/platform/browser/index.js`
 const pluginMap = pluginOptionMapToPluginMap({
   "proposal-object-rest-spread": {},
   "proposal-optional-catch-binding": {},
@@ -38,7 +37,7 @@ const pluginMap = pluginOptionMapToPluginMap({
 const compile = async () => {
   const plugins = pluginMapToPluginsForPlatform(pluginMap, "unknown", "0.0.0")
   const bundle = await rollup({
-    input: inputFile,
+    input: `${localRoot}/${inputFile}`,
     plugins: [
       nodeResolve({
         module: true,

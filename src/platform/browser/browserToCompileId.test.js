@@ -1,6 +1,6 @@
 // won't work because rollup needs path to @dmail/project-structure-compile-babel/src/versionCompare.js
 // but we will no support export token
-import { browserToCompileId } from "./browserPlatform.js"
+import { browserToCompileId } from "./browserToCompileId.js"
 import assert from "assert"
 
 {

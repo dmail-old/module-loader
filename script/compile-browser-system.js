@@ -9,7 +9,7 @@ const babel = require("rollup-plugin-babel")
 const nodeResolve = require("rollup-plugin-node-resolve")
 
 const localRoot = path.resolve(__dirname, "../")
-const inputFile = `${localRoot}/src/system/browser/index.js`
+const inputFile = `src/system/browser/index.js`
 const pluginMap = pluginOptionMapToPluginMap({
   "proposal-async-generator-functions": {},
   "proposal-json-strings": {},
@@ -45,7 +45,7 @@ const compile = async () => {
   const plugins = pluginMapToPluginsForPlatform(pluginMap, "unknown", "0.0.0")
 
   const bundle = await rollup({
-    input: inputFile,
+    input: `${localRoot}/${inputFile}`,
     plugins: [
       nodeResolve({
         module: true,
@@ -59,13 +59,11 @@ const compile = async () => {
     // onwarn: () => {},
   })
 
-  const compileResult = bundle.generate({
+  const compileResult = await bundle.generate({
     format: "iife",
     name: "__browserSystem__",
     sourcemap: true,
   })
-
-  debugger
 
   await fileSystemWriteCompileResult(compileResult, `browser-system.js`, `${localRoot}/dist`)
   console.log(`${inputFile} -> dist/browser-system.js`)
