@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "../../src/getNamespaceToRegister.js"
+    "src/getNamespaceToRegister.js"
   ],
   "names": [
     "getNamespaceToRegister",

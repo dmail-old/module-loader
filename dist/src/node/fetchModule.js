@@ -15,7 +15,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _https.default.globalAgent.options.rejectUnauthorized = false;
 const isWindows = typeof process !== "undefined" && typeof process.platform === "string" && process.platform.match(/^win/);
-const nodeVersion = process.version.slice(1);
 
 const fileUrlToPath = fileUrl => {
   if (fileUrl.substr(0, 7) !== "file://") {
@@ -61,11 +60,11 @@ const getHeaderMapFromResponse = response => {
   return headerMap;
 };
 
-const fetchModuleFromServer = key => {
-  if (key.indexOf("http:") === 0 || key.indexOf("https:") === 0) {
-    return (0, _nodeFetch.default)(key, {
+const fetchModuleFromServer = (url, parent) => {
+  if (url.indexOf("http:") === 0 || url.indexOf("https:") === 0) {
+    return (0, _nodeFetch.default)(url, {
       headers: {
-        "user-agent": `node/${nodeVersion}`
+        "x-module-referer": parent || url
       }
     }).then(response => response.text().then(text => {
       return {
@@ -80,14 +79,14 @@ const fetchModuleFromServer = key => {
   return undefined;
 };
 
-const fetchModule = key => {
-  return Promise.resolve(fetchModuleFromFileSystem(key)).then(data => {
-    return data ? data : Promise.resolve(fetchModuleFromServer(key)).then(data => {
+const fetchModule = (url, parent) => {
+  return Promise.resolve(fetchModuleFromFileSystem(url, parent)).then(data => {
+    return data ? data : Promise.resolve(fetchModuleFromServer(url, parent)).then(data => {
       if (data) {
         return data;
       }
 
-      throw new Error(`unsupported protocol for module ${key}`);
+      throw new Error(`unsupported protocol for module ${url}`);
     });
   });
 };

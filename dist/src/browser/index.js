@@ -7,7 +7,9 @@ var _getNamespaceToRegister = require("../getNamespaceToRegister.js");
 const browserSystem = new window.System.constructor();
 
 browserSystem.instantiate = (url, parent) => {
-  return (0, _fetchUsingXHR.fetchUsingXHR)(url).then(({
+  return (0, _fetchUsingXHR.fetchUsingXHR)(url, {
+    "x-module-referer": parent || url
+  }).then(({
     status,
     headers,
     reason,
@@ -47,6 +49,8 @@ ${"//#"} sourceURL=${url}`;
         };
       });
     }
+
+    return null;
   });
 };
 

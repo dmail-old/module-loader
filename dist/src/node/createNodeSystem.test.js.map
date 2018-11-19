@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "../../../src/node/createNodeSystem.test.js"
+    "src/node/createNodeSystem.test.js"
   ],
   "names": [
     "then",
