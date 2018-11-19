@@ -1,0 +1,19 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserToCompileId.js"
+  ],
+  "names": [
+    "browserToCompileId",
+    "name",
+    "version",
+    "compileMap",
+    "Object",
+    "keys",
+    "find",
+    "id",
+    "compatMap",
+    "versionForGroup"
+  ],
+  "mappings": ";;;;;;;AAAA;;AAEO,MAAMA,kBAAkB,GAAG,CAAC;AAAEC,EAAAA,IAAF;AAAQC,EAAAA;AAAR,CAAD,EAAoBC,UAApB,KAAmC;AACnE,SAAOC,MAAM,CAACC,IAAP,CAAYF,UAAZ,EAAwBG,IAAxB,CAA8BC,EAAD,IAAQ;AAC1C,UAAM;AAAEC,MAAAA;AAAF,QAAgBL,UAAU,CAACI,EAAD,CAAhC;;AAEA,QAAIN,IAAI,IAAIO,SAAR,KAAsB,KAA1B,EAAiC;AAC/B,aAAO,KAAP;AACD;;AACD,UAAMC,eAAe,GAAGD,SAAS,CAACP,IAAD,CAAjC;AACA,WAAO,2CAAsBQ,eAAtB,EAAuCP,OAAvC,CAAP;AACD,GARM,CAAP;AASD,CAVM"
+}

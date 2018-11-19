@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserDetect/ie.js"
+  ],
+  "names": [
+    "userAgentToBrowser",
+    "userAgent",
+    "test",
+    "name",
+    "version",
+    "detect",
+    "window",
+    "navigator"
+  ],
+  "mappings": ";;;;;;;AAAA;;AAEA,MAAMA,kBAAkB,GAAIC,SAAD,IAAe;AACxC,MAAI,gBAAgBC,IAAhB,CAAqBD,SAArB,CAAJ,EAAqC;AACnC,WAAO;AACLE,MAAAA,IAAI,EAAE,IADD;AAELC,MAAAA,OAAO,EAAE,sBAAW,gCAAX,EAA6CH,SAA7C;AAFJ,KAAP;AAID;;AACD,SAAO,IAAP;AACD,CARD;;AAUO,MAAMI,MAAM,GAAG,MAAML,kBAAkB,CAACM,MAAM,CAACC,SAAP,CAAiBN,SAAlB,CAAvC"
+}

@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserDetect/safari.js"
+  ],
+  "names": [
+    "userAgentToBrowser",
+    "userAgent",
+    "test",
+    "name",
+    "version",
+    "detect",
+    "window",
+    "navigator"
+  ],
+  "mappings": ";;;;;;;AAAA;;AAEA,MAAMA,kBAAkB,GAAIC,SAAD,IAAe;AACxC,MAAI,sBAAsBC,IAAtB,CAA2BD,SAA3B,CAAJ,EAA2C;AACzC,WAAO;AACLE,MAAAA,IAAI,EAAE,QADD;AAELC,MAAAA,OAAO,EAAE,8BAAmBH,SAAnB;AAFJ,KAAP;AAID;;AACD,SAAO,IAAP;AACD,CARD;;AAUO,MAAMI,MAAM,GAAG,MAAML,kBAAkB,CAACM,MAAM,CAACC,SAAP,CAAiBN,SAAlB,CAAvC"
+}

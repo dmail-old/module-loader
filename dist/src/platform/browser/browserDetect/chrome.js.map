@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserDetect/chrome.js"
+  ],
+  "names": [
+    "userAgentToBrowser",
+    "userAgent",
+    "test",
+    "name",
+    "version",
+    "detect",
+    "window",
+    "navigator"
+  ],
+  "mappings": ";;;;;;;AAAA;;AAEA,MAAMA,kBAAkB,GAAIC,SAAD,IAAe;AACxC,MAAI,YAAYC,IAAZ,CAAiBD,SAAjB,CAAJ,EAAiC;AAC/B,WAAO;AACLE,MAAAA,IAAI,EAAE,QADD;AAELC,MAAAA,OAAO,EACL,sBAAW,oCAAX,EAAiDH,SAAjD,KACA,8BAAmBA,SAAnB;AAJG,KAAP;AAMD;;AAED,MAAI,qBAAqBC,IAArB,CAA0BD,SAA1B,CAAJ,EAA0C;AACxC,WAAO;AACLE,MAAAA,IAAI,EAAE,QADD;AAELC,MAAAA,OAAO,EAAE,sBAAW,0CAAX,EAAuDH,SAAvD;AAFJ,KAAP;AAID;;AAED,SAAO,IAAP;AACD,CAlBD;;AAoBO,MAAMI,MAAM,GAAG,MAAML,kBAAkB,CAACM,MAAM,CAACC,SAAP,CAAiBN,SAAlB,CAAvC"
+}

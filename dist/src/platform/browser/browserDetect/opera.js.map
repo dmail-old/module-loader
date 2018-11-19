@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserDetect/opera.js"
+  ],
+  "names": [
+    "userAgentToBrowser",
+    "userAgent",
+    "test",
+    "name",
+    "version",
+    "detect",
+    "window",
+    "navigator"
+  ],
+  "mappings": ";;;;;;;AAAA;;AAEA,MAAMA,kBAAkB,GAAIC,SAAD,IAAe;AACxC;AACA,MAAI,SAASC,IAAT,CAAcD,SAAd,CAAJ,EAA8B;AAC5B,WAAO;AACLE,MAAAA,IAAI,EAAE,OADD;AAELC,MAAAA,OAAO,EACL,8BAAmBH,SAAnB,KAAiC,sBAAW,iCAAX,EAA8CA,SAA9C;AAH9B,KAAP;AAKD,GARuC,CAUxC;;;AACA,MAAI,eAAeC,IAAf,CAAoBD,SAApB,CAAJ,EAAoC;AAClC,WAAO;AACLE,MAAAA,IAAI,EAAE,OADD;AAELC,MAAAA,OAAO,EAAE,sBAAW,0BAAX,EAAuCH,SAAvC,KAAqD,8BAAmBA,SAAnB;AAFzD,KAAP;AAID;;AAED,SAAO,IAAP;AACD,CAnBD;;AAqBO,MAAMI,MAAM,GAAG,MAAML,kBAAkB,CAACM,MAAM,CAACC,SAAP,CAAiBN,SAAlB,CAAvC"
+}

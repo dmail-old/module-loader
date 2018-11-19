@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserDetect/firefox.js"
+  ],
+  "names": [
+    "userAgentToBrowser",
+    "userAgent",
+    "test",
+    "name",
+    "version",
+    "detect",
+    "window",
+    "navigator"
+  ],
+  "mappings": ";;;;;;;AAAA;;AAEA,MAAMA,kBAAkB,GAAIC,SAAD,IAAe;AACxC,MAAI,2BAA2BC,IAA3B,CAAgCD,SAAhC,CAAJ,EAAgD;AAC9C,WAAO;AACLE,MAAAA,IAAI,EAAE,SADD;AAELC,MAAAA,OAAO,EAAE,sBAAW,mDAAX,EAAgEH,SAAhE;AAFJ,KAAP;AAID;;AACD,SAAO,IAAP;AACD,CARD;;AAUO,MAAMI,MAAM,GAAG,MAAML,kBAAkB,CAACM,MAAM,CAACC,SAAP,CAAiBN,SAAlB,CAAvC"
+}

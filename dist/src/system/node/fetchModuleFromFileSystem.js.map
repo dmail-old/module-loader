@@ -1,0 +1,35 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/system/node/fetchModuleFromFileSystem.js"
+  ],
+  "names": [
+    "isWindows",
+    "process",
+    "platform",
+    "match",
+    "fileUrlToPath",
+    "fileUrl",
+    "substr",
+    "RangeError",
+    "replace",
+    "fetchModuleFromFileSystem",
+    "key",
+    "filePath",
+    "Promise",
+    "resolve",
+    "reject",
+    "fs",
+    "readFile",
+    "error",
+    "buffer",
+    "String",
+    "then",
+    "source",
+    "status",
+    "reason",
+    "headers",
+    "body"
+  ],
+  "mappings": ";;;;;;;AAAA;;;;AAEA,MAAMA,SAAS,GACb,OAAOC,OAAP,KAAmB,WAAnB,IACA,OAAOA,OAAO,CAACC,QAAf,KAA4B,QAD5B,IAEAD,OAAO,CAACC,QAAR,CAAiBC,KAAjB,CAAuB,MAAvB,CAHF;;AAKA,MAAMC,aAAa,GAAIC,OAAD,IAAa;AACjC,MAAIA,OAAO,CAACC,MAAR,CAAe,CAAf,EAAkB,CAAlB,MAAyB,SAA7B,EAAwC;AACtC,UAAM,IAAIC,UAAJ,CAAgB,GAAEF,OAAQ,0BAA1B,CAAN;AACD;;AACD,MAAIL,SAAJ,EAAe;AACb,WAAOK,OAAO,CAACC,MAAR,CAAe,CAAf,EAAkBE,OAAlB,CAA0B,KAA1B,EAAiC,GAAjC,CAAP;AACD;;AACD,SAAOH,OAAO,CAACC,MAAR,CAAe,CAAf,CAAP;AACD,CARD;;AAUO,MAAMG,yBAAyB,GAAIC,GAAD,IAAS;AAChD,QAAMC,QAAQ,GAAGP,aAAa,CAACM,GAAD,CAA9B;AACA,SAAO,IAAIE,OAAJ,CAAY,CAACC,OAAD,EAAUC,MAAV,KAAqB;AACtCC,gBAAGC,QAAH,CAAYL,QAAZ,EAAsB,CAACM,KAAD,EAAQC,MAAR,KAAmB;AACvC,UAAID,KAAJ,EAAW;AACTH,QAAAA,MAAM,CAACG,KAAD,CAAN;AACD,OAFD,MAEO;AACLJ,QAAAA,OAAO,CAACM,MAAM,CAACD,MAAD,CAAP,CAAP;AACD;AACF,KAND;AAOD,GARM,EAQJE,IARI,CAQEC,MAAD,IAAY;AAClB,WAAO;AAAEC,MAAAA,MAAM,EAAE,GAAV;AAAeC,MAAAA,MAAM,EAAE,EAAvB;AAA2BC,MAAAA,OAAO,EAAE,EAApC;AAAwCC,MAAAA,IAAI,EAAEJ;AAA9C,KAAP;AACD,GAVM,CAAP;AAWD,CAbM"
+}

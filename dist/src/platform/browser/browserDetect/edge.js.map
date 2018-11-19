@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserDetect/edge.js"
+  ],
+  "names": [
+    "userAgentToBrowser",
+    "userAgent",
+    "test",
+    "name",
+    "version",
+    "detect",
+    "window",
+    "navigator"
+  ],
+  "mappings": ";;;;;;;AAAA;;AAEA,MAAMA,kBAAkB,GAAIC,SAAD,IAAe;AACxC,MAAI,iBAAiBC,IAAjB,CAAsBD,SAAtB,CAAJ,EAAsC;AACpC,WAAO;AACLE,MAAAA,IAAI,EAAE,MADD;AAELC,MAAAA,OAAO,EAAE,uBAAY,kCAAZ,EAAgDH,SAAhD;AAFJ,KAAP;AAID;;AACD,SAAO,IAAP;AACD,CARD;;AAUO,MAAMI,MAAM,GAAG,MAAML,kBAAkB,CAACM,MAAM,CAACC,SAAP,CAAiBN,SAAlB,CAAvC"
+}

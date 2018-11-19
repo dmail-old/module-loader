@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/createImportTracker.js"
+  ],
+  "names": [
+    "createImportTracker",
+    "importedMap",
+    "markFileAsImported",
+    "file",
+    "isFileImported"
+  ],
+  "mappings": ";;;;;;;AAAO,MAAMA,mBAAmB,GAAG,MAAM;AACvC,QAAMC,WAAW,GAAG,EAApB;;AAEA,QAAMC,kBAAkB,GAAIC,IAAD,IAAU;AACnCF,IAAAA,WAAW,CAACE,IAAD,CAAX,GAAoB,IAApB;AACD,GAFD;;AAIA,QAAMC,cAAc,GAAID,IAAD,IAAU;AAC/B,WAAOA,IAAI,IAAIF,WAAR,IAAuBA,WAAW,CAACE,IAAD,CAAX,KAAsB,IAApD;AACD,GAFD;;AAIA,SAAO;AAAED,IAAAA,kBAAF;AAAsBE,IAAAA;AAAtB,GAAP;AACD,CAZM"
+}

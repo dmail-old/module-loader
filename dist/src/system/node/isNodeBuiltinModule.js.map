@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/system/node/isNodeBuiltinModule.js"
+  ],
+  "names": [
+    "isNodeBuiltinModule",
+    "moduleName",
+    "Module",
+    "builtinModules",
+    "includes",
+    "repl",
+    "_builtinLibs"
+  ],
+  "mappings": ";;;;;;;AAAA;;AACA;;;;AAEO,MAAMA,mBAAmB,GAAIC,UAAD,IAAgB;AACjD;AACA,MAAI,oBAAoBC,eAAxB,EAAgC;AAC9B,WAAOA,gBAAOC,cAAP,CAAsBC,QAAtB,CAA+BH,UAA/B,CAAP;AACD,GAJgD,CAKjD;;;AACA,SAAOI,cAAKC,YAAL,CAAkBF,QAAlB,CAA2BH,UAA3B,CAAP;AACD,CAPM"
+}

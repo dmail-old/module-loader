@@ -1,0 +1,23 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/hotreload.js"
+  ],
+  "names": [
+    "open",
+    "url",
+    "callback",
+    "window",
+    "EventSource",
+    "eventSource",
+    "withCredentials",
+    "close",
+    "onerror",
+    "addEventListener",
+    "e",
+    "origin",
+    "fileChanged",
+    "data"
+  ],
+  "mappings": ";;;;;;;AAAO,MAAMA,IAAI,GAAG,CAACC,GAAD,EAAMC,QAAN,KAAmB;AACrC,MAAI,OAAOC,MAAM,CAACC,WAAd,KAA8B,UAAlC,EAA8C;AAC5C,WAAO,MAAM,CAAE,CAAf;AACD;;AAED,QAAMC,WAAW,GAAG,IAAIF,MAAM,CAACC,WAAX,CAAuBH,GAAvB,EAA4B;AAAEK,IAAAA,eAAe,EAAE;AAAnB,GAA5B,CAApB;;AAEA,QAAMC,KAAK,GAAG,MAAM;AAClBF,IAAAA,WAAW,CAACE,KAAZ;AACD,GAFD;;AAIAF,EAAAA,WAAW,CAACG,OAAZ,GAAsB,MAAM;AAC1B;AACA;AACA;AACA;AACAD,IAAAA,KAAK;AACN,GAND;;AAOAF,EAAAA,WAAW,CAACI,gBAAZ,CAA6B,cAA7B,EAA8CC,CAAD,IAAO;AAClD,QAAIA,CAAC,CAACC,MAAF,KAAaV,GAAjB,EAAsB;AACpB;AACD;;AACD,UAAMW,WAAW,GAAGF,CAAC,CAACG,IAAtB;AACAX,IAAAA,QAAQ,CAACU,WAAD,CAAR;AACD,GAND;AAQA,SAAOL,KAAP;AACD,CA3BM"
+}

@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserDetect/android.js"
+  ],
+  "names": [
+    "navigatorToBrowser",
+    "userAgent",
+    "appVersion",
+    "test",
+    "name",
+    "version",
+    "detect",
+    "window",
+    "navigator"
+  ],
+  "mappings": ";;;;;;;AAAA;;AAEA,MAAMA,kBAAkB,GAAG,CAAC;AAAEC,EAAAA,SAAF;AAAaC,EAAAA;AAAb,CAAD,KAA+B;AACxD,MAAI,aAAaC,IAAb,CAAkBF,SAAlB,CAAJ,EAAkC;AAChC,WAAO;AACLG,MAAAA,IAAI,EAAE,SADD;AAELC,MAAAA,OAAO,EAAE,sBAAW,2BAAX,EAAwCH,UAAxC;AAFJ,KAAP;AAID;;AACD,SAAO,IAAP;AACD,CARD;;AAUO,MAAMI,MAAM,GAAG,MAAMN,kBAAkB,CAACO,MAAM,CAACC,SAAR,CAAvC"
+}

@@ -1,0 +1,28 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/system/node/fetchModuleFromServer.js"
+  ],
+  "names": [
+    "https",
+    "globalAgent",
+    "options",
+    "rejectUnauthorized",
+    "getHeaderMapFromResponse",
+    "response",
+    "headerMap",
+    "headers",
+    "forEach",
+    "value",
+    "name",
+    "fetchModuleFromServer",
+    "url",
+    "parent",
+    "text",
+    "status",
+    "reason",
+    "statusText",
+    "body"
+  ],
+  "mappings": ";;;;;;;AAAA;;AACA;;;;AAEAA,eAAMC,WAAN,CAAkBC,OAAlB,CAA0BC,kBAA1B,GAA+C,KAA/C;;AAEA,MAAMC,wBAAwB,GAAIC,QAAD,IAAc;AAC7C,QAAMC,SAAS,GAAG,EAAlB;AACAD,EAAAA,QAAQ,CAACE,OAAT,CAAiBC,OAAjB,CAAyB,CAACC,KAAD,EAAQC,IAAR,KAAiB;AACxCJ,IAAAA,SAAS,CAACI,IAAD,CAAT,GAAkBD,KAAlB;AACD,GAFD;AAGA,SAAOH,SAAP;AACD,CAND;;AAQO,MAAMK,qBAAqB,GAAG,OAAOC,GAAP,EAAYC,MAAZ,KAAuB;AAC1D,QAAMR,QAAQ,GAAG,MAAM,wBAAMO,GAAN,EAAW;AAChCL,IAAAA,OAAO,EAAE;AACP,0BAAoBM,MAAM,IAAID;AADvB;AADuB,GAAX,CAAvB;AAMA,QAAME,IAAI,GAAG,MAAMT,QAAQ,CAACS,IAAT,EAAnB;AACA,SAAO;AACLC,IAAAA,MAAM,EAAEV,QAAQ,CAACU,MADZ;AAELC,IAAAA,MAAM,EAAEX,QAAQ,CAACY,UAFZ;AAGLV,IAAAA,OAAO,EAAEH,wBAAwB,CAACC,QAAD,CAH5B;AAILa,IAAAA,IAAI,EAAEJ;AAJD,GAAP;AAMD,CAdM"
+}

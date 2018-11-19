@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserDetect/util.js"
+  ],
+  "names": [
+    "firstMatch",
+    "regexp",
+    "string",
+    "match",
+    "length",
+    "undefined",
+    "secondMatch",
+    "userAgentToVersion",
+    "userAgent"
+  ],
+  "mappings": ";;;;;;;AAAO,MAAMA,UAAU,GAAG,CAACC,MAAD,EAASC,MAAT,KAAoB;AAC5C,QAAMC,KAAK,GAAGD,MAAM,CAACC,KAAP,CAAaF,MAAb,CAAd;AACA,SAAOE,KAAK,IAAIA,KAAK,CAACC,MAAN,GAAe,CAAxB,GAA4BD,KAAK,CAAC,CAAD,CAAL,IAAYE,SAAxC,GAAoDA,SAA3D;AACD,CAHM;;;;AAKA,MAAMC,WAAW,GAAG,CAACL,MAAD,EAASC,MAAT,KAAoB;AAC7C,QAAMC,KAAK,GAAGD,MAAM,CAACC,KAAP,CAAaF,MAAb,CAAd;AACA,SAAOE,KAAK,IAAIA,KAAK,CAACC,MAAN,GAAe,CAAxB,GAA4BD,KAAK,CAAC,CAAD,CAAL,IAAYE,SAAxC,GAAoDA,SAA3D;AACD,CAHM;;;;AAKA,MAAME,kBAAkB,GAAIC,SAAD,IAAe;AAC/C,SAAOR,UAAU,CAAC,4BAAD,EAA+BQ,SAA/B,CAAV,IAAuDH,SAA9D;AACD,CAFM"
+}

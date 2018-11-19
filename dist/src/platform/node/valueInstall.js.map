@@ -1,0 +1,15 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/node/valueInstall.js"
+  ],
+  "names": [
+    "valueInstall",
+    "object",
+    "name",
+    "value",
+    "has",
+    "previous"
+  ],
+  "mappings": ";;;;;;;AAAO,MAAMA,YAAY,GAAG,CAACC,MAAD,EAASC,IAAT,EAAeC,KAAf,KAAyB;AACnD,QAAMC,GAAG,GAAGF,IAAI,IAAID,MAApB;AACA,QAAMI,QAAQ,GAAGJ,MAAM,CAACC,IAAD,CAAvB;AAEAD,EAAAA,MAAM,CAACC,IAAD,CAAN,GAAeC,KAAf;AAEA,SAAO,MAAM;AACX,QAAIC,GAAJ,EAAS;AACPH,MAAAA,MAAM,CAACC,IAAD,CAAN,GAAeG,QAAf;AACD,KAFD,MAEO;AACL,aAAOJ,MAAM,CAACC,IAAD,CAAb;AACD;AACF,GAND;AAOD,CAbM"
+}

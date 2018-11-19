@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/stringToStringWithLink.js"
+  ],
+  "names": [
+    "link",
+    "url",
+    "text",
+    "stringToStringWithLink",
+    "source",
+    "replace",
+    "match"
+  ],
+  "mappings": ";;;;;;;AAAO,MAAMA,IAAI,GAAG,CAACC,GAAD,EAAMC,IAAI,GAAGD,GAAb,KAAsB,YAAWA,GAAI,KAAIC,IAAK,MAA3D,C,CAEP;AACA;AACA;AACA;AACA;AACA;AACA;;;;;AACO,MAAMC,sBAAsB,GAAIC,MAAD,IAAY;AAChD,SAAOA,MAAM,CAACC,OAAP,CAAe,gCAAf,EAAkDC,KAAD,IAAW;AACjE;AACA,UAAML,GAAG,GAAGK,KAAK,CAACD,OAAN,CAAc,yBAAd,EAAyC,EAAzC,CAAZ,CAFiE,CAGjE;;AAEA,WAAOL,IAAI,CAACC,GAAD,EAAMK,KAAN,CAAX;AACD,GANM,CAAP;AAOD,CARM"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserDetect/electron.js"
+  ],
+  "names": [
+    "detect"
+  ],
+  "mappings": ";;;;;;;AAAO,MAAMA,MAAM,GAAG,MAAM,IAArB,C,CAA0B"
+}

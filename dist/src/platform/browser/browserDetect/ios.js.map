@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "sources": [
+    "/src/platform/browser/browserDetect/ios.js"
+  ],
+  "names": [
+    "navigatorToBrowser",
+    "userAgent",
+    "appVersion",
+    "test",
+    "name",
+    "version",
+    "detect",
+    "window",
+    "navigator"
+  ],
+  "mappings": ";;;;;;;AAAA;;AAEA,MAAMA,kBAAkB,GAAG,CAAC;AAAEC,EAAAA,SAAF;AAAaC,EAAAA;AAAb,CAAD,KAA+B;AACxD,MAAI,UAAUC,IAAV,CAAeF,SAAf,CAAJ,EAA+B;AAC7B,WAAO;AACLG,MAAAA,IAAI,EAAE,KADD;AAELC,MAAAA,OAAO,EAAE,sBAAW,sBAAX,EAAmCH,UAAnC;AAFJ,KAAP;AAID;;AACD,MAAI,QAAQC,IAAR,CAAaF,SAAb,CAAJ,EAA6B;AAC3B,WAAO;AACLG,MAAAA,IAAI,EAAE,KADD;AAELC,MAAAA,OAAO,EAAE,sBAAW,sBAAX,EAAmCH,UAAnC;AAFJ,KAAP;AAID;;AACD,SAAO,IAAP;AACD,CAdD;;AAgBO,MAAMI,MAAM,GAAG,MAAMN,kBAAkB,CAACO,MAAM,CAACC,SAAR,CAAvC"
+}
