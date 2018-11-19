@@ -27,6 +27,7 @@
 		"@babel/core": "7.1.0"
 	},
 	"devDependencies": {
+		"@dmail/project-structure": "github:dmail/project-structure",
 		"@dmail/project-structure-compile-babel": "github:dmail/project-structure-compile-babel",
 		"@dmail/project-eslint-config": "github:dmail/project-eslint-config",
 		"@dmail/project-prettier-config": "github:dmail/project-prettier-config",
