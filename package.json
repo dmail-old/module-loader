@@ -19,6 +19,7 @@
 		"node": ">=8.6.0"
 	},
 	"dependencies": {
+		"@dmail/project-structure": "github:dmail/cancellation",
 		"node-fetch": "2.0.0",
 		"systemjs": "2.0.2",
 		"rollup": "0.66.2",
