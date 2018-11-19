@@ -1,9 +1,9 @@
 const { forEachRessourceMatching, configToMetaMap } = require("@dmail/project-structure")
-const { fileSystemWriteCompileResult } = require("./fileSystemWriteCompileResult.js")
 const {
   pluginOptionMapToPluginMap,
   pluginMapToPluginsForPlatform,
   compileFile,
+  fileSystemWriteCompileResult,
 } = require("@dmail/project-structure-compile-babel")
 const structureConfig = require("../structure.config.js")
 const path = require("path")
@@ -41,7 +41,7 @@ forEachRessourceMatching(
   ({ compile }) => compile,
   async (ressource) => {
     const compileResult = await compileFile(ressource, { localRoot, plugins })
-    await fileSystemWriteCompileResult(compileResult, `${localRoot}/dist/${ressource}`)
+    await fileSystemWriteCompileResult(compileResult, ressource, `${localRoot}/dist`)
     console.log(`${ressource} -> dist/${ressource} `)
   },
 )
